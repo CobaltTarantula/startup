@@ -61,3 +61,6 @@ A footnote can also have multiple lines[^2].
 ```
 ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@ubuntu@3.93.166.106
 ```
+# Startup Ideas
+*ultimate rock paper scissors
+*morse decoder
