@@ -59,7 +59,8 @@ A footnote can also have multiple lines[^2].
 * [instance](http://3.93.166.106)
 * console ssh connect command = 
 ```
-ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@ubuntu@3.93.166.106
+ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@3.93.166.106
+ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@morsedecoder.click
 ```
 # Startup Ideas
 * ultimate rock paper scissors
