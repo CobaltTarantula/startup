@@ -64,3 +64,5 @@ ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@ubuntu@3.93.166.1
 # Startup Ideas
 * ultimate rock paper scissors
 * morse decoder
+* Mom's recipe book
+* Dad's album
