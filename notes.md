@@ -56,11 +56,11 @@ A footnote can also have multiple lines[^2].
   This is a second line.
 -->
 # AWS information
-*[instance](http://3.93.166.106)
-*console ssh connect command = 
+* [instance](http://3.93.166.106)
+* console ssh connect command = 
 ```
 ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@ubuntu@3.93.166.106
 ```
 # Startup Ideas
-*ultimate rock paper scissors
-*morse decoder
+* ultimate rock paper scissors
+* morse decoder
