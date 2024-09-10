@@ -54,3 +54,9 @@ A footnote can also have multiple lines[^2].
 [^1]: My reference.
 [^2]: To add line breaks within a footnote, prefix new lines with 2 spaces.
   This is a second line.
+# AWS information
+*[instance](http://3.93.166.106)
+*console ssh connect command = 
+```
+ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@ubuntu@3.93.166.106
+```
