@@ -66,3 +66,8 @@ ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@ubuntu@3.93.166.1
 * morse decoder
 * Mom's recipe book
 * Dad's album
+# Domain
+* Route 53
+* morsedecoder.click
+* empty name file type A
+* "*" name file type A
