@@ -1,7 +1,7 @@
 # Morse Decoder
 [Notes page](notes.md)
 ## Elevator pitch
-
+Have you ever wished you knew another language? Do you sometimes wish to hide your darkest secrets in cryptic messages for the unlearned to scratch their heads at? Morse Decoder give you the opportunity to brush up on your skills in Morse Code. You will have the opportunity to both codify and decodify messages in Morse Code. As you practice more and more, see your speed/score get better and better! Become one of the top players and become a Morse Code master!
 ## Design
 ![decoderfront](decoder1.JPG)
 ![decoderback](decoder2.JPG)
@@ -10,7 +10,7 @@
 * Ability to choose between translating to or from Morse code
 * Morse code key page available to consult
 * Top scores recorded and displayed
-* top players recorded and displayed
+* Top players recorded and displayed
 ## Technologies
 * HTML - Login page, Morse Code Key page, Game menu, Game page 1 (English to Morse), Game page 2 (Morse to English), scoring page.
 * CSS - Application styling that looks good on different screen sizes, uses good whitespace, color choice and contrast. Little animation for scoring page. Sounds coordinated to morse letters to match the rhythm.
