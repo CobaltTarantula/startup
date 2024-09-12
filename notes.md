@@ -72,3 +72,16 @@ ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@morsedecoder.clic
 * morsedecoder.click
 * empty name file type A
 * "*" name file type A
+# 9/12/2024
+* Development environment: local computer used to edit site
+  - VS code
+  - Console
+  - Git
+  - Github
+* Production environment: currently running site on the cloud
+  - EC2
+  - Caddy
+  - AWS
+  - HTTPS
+  - Web services
+## Servers and AWS/EC2
