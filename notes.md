@@ -57,6 +57,7 @@ A footnote can also have multiple lines[^2].
 -->
 # AWS information
 * [instance](http://3.93.166.106)
+* [instance_updated](https://morsedecoder.click)
 * console ssh connect command = 
 ```
 ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@3.93.166.106
@@ -84,4 +85,5 @@ ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@morsedecoder.clic
   - AWS
   - HTTPS
   - Web services
-## Servers and AWS/EC2
+    - MongoDB
+  - Route 53
