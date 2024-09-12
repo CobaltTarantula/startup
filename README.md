@@ -1,7 +1,7 @@
 # Morse Decoder
 [Notes page](notes.md)
 ## Elevator pitch
-Have you ever wished you knew another language? Do you sometimes wish to hide your darkest secrets in cryptic messages for the unlearned to scratch their heads at? Morse Decoder give you the opportunity to brush up on your skills in Morse Code. You will have the opportunity to both codify and decodify messages in Morse Code. As you practice more and more, see your speed/score get better and better! Become one of the top players and become a Morse Code master!
+Have you ever wished you knew another language? Do you sometimes wish to hide your darkest secrets in cryptic messages for the unlearned to scratch their heads at? Morse Decoder give you the opportunity to brush up on your skills in Morse code. You will have the opportunity to both codify and decodify messages in Morse code. As you practice more and more, see your speed/score get better and better! Become one of the top players and become a Morse code master!
 ## Design
 ![decoderfront](decoder1.JPG)
 ![decoderback](decoder2.JPG)
