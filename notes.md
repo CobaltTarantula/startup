@@ -87,3 +87,10 @@ ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@morsedecoder.clic
   - Web services
     - MongoDB
   - Route 53
+# 9/17/2024 Simon HTML
+In order to clone and then deploy simon on my site ->
+while in simon-html ->
+```
+git clone https://github.com/webprogramming260/simon-html.git
+./deployFiles.sh -k ../mcwhertor.pem -h morsedecoder.click -s simon
+```
