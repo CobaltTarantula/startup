@@ -186,6 +186,4 @@ section:hover {
 }
 ```
 # 9/23/24 Declarations
-Table of declarations and other stuff
-<br />
-[Table](https://learn.cs260.click/page/css/declarations/declarations_md)
+[Table](https://learn.cs260.click/page/css/declarations/declarations_md) of declarations and other stuff
