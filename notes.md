@@ -222,7 +222,7 @@ p {
 }
 ```
 # CSS Animation
-**animation:** various properties to be edited in the animation
+__animation:__ various properties to be edited in the animation
 <br />
 **keyframes:** snapshots at key points
 <br />
