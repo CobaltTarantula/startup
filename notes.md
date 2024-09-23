@@ -123,3 +123,13 @@ When making declarations, the most "inside" a declaration is in the doc makes it
 2. Padding (background color)
 3. Border (color, thickness, line style)
 4. Margin (whitespace)
+# 9/23/24 Selectors
+## Element type selector
+```
+body {
+  font-family: sans-serif;
+}
+<!--
+Makes all font of body be sans-serif
+ -->
+```
