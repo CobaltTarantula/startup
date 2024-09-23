@@ -94,3 +94,23 @@ while in simon-html ->
 git clone https://github.com/webprogramming260/simon-html.git
 ./deployFiles.sh -k ../mcwhertor.pem -h morsedecoder.click -s simon
 ```
+# 9/23/2024 CSS Intro
+CSS takes HTML and makes it pretty and interactive.
+- **rulesets:** rules
+   - **selecter:** selects element to apply style rule to
+   - **declarations:** represent the **property** to style with the given **property value**
+```
+p {
+  font-family: sans-serif;
+  font-size: 2em;
+  color: navy;
+  text-shadow: 3px 3px 1px #cccccc;
+}
+```
+p = selector
+font-family, font-size, color, text-shadow = declarations
+## Associating CSS with HTML
+1. use **style** element to explicitly assign >=1 declarations
+2. use **style** element to define CSS rules within HTML doc (in head element of html)
+3. use **link** element to connect to CSS file with the rules (in head element of html)
+   - Generally the best
