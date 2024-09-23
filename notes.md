@@ -131,3 +131,43 @@ body {
   font-family: sans-serif;
 }
 ```
+Applies bottom border to heading and modifies element and background colors:
+```
+h1 {
+  border-bottom: thin black solid;
+}
+
+section {
+  background: #eeeeee;
+  padding: 0.25em;
+  margin-bottom: 0.5em;
+}
+```
+## Combinators
+changes color of second level heading within sections only (**descendant combinator**)
+```
+section h2 {
+  color: #004400;
+}
+```
+various combinators exist
+## Class selector
+Makes all elements of the specific paragraph of the summary class bold:
+```
+.summary {
+  font-weight: bold;
+}
+```
+Makes all elements of all paragrapsh of the summary class bold:
+```
+p.summary {
+  font-weight: bold;
+}
+```
+## ID selector
+applies changes to specific element/element section
+```
+#physics {
+  border-left: solid 1em purple;
+}
+```
