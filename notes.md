@@ -123,7 +123,8 @@ When making declarations, the most "inside" a declaration is in the doc makes it
 2. Padding (background color)
 3. Border (color, thickness, line style)
 4. Margin (whitespace)
-# 9/23/24 Selectors
+
+# CSS Selectors
 ## Element type selector
 Makes all fonts of the body sans serif:
 ```
@@ -185,5 +186,65 @@ section:hover {
   border-left: solid 1em purple;
 }
 ```
-# 9/23/24 Declarations
+# CSS Declarations
 [Table](https://learn.cs260.click/page/css/declarations/declarations_md) of declarations and other stuff
+# 9/23/24 CSS Fonts
+## Font Families
+**font-family:** defines what fonts should be used
+1. Serif
+   - extra strokes
+2. sans-serif
+   - no extra strokes
+3. fixed
+   - all chars same size
+4. symbol
+   - non language chars
+## Importing fonts
+**@font-face:** loads an outside sourced font
+<br />
+Example of grabbing font from local server:
+```
+@font-face {
+  font-family: 'Quicksand';
+  src: url('https://cs260.click/fonts/quicksand.ttf');
+}
+
+p {
+  font-family: Quicksand;
+}
+```
+Example of outsourcing fonts:
+```
+@import url('https://fonts.googleapis.com/css2?family=Rubik Microbe&display=swap');
+
+p {
+  font-family: 'Rubik Microbe';
+}
+```
+# CSS Animation
+**animation:** various properties to be edited in the animation
+**keyframes:** snapshots at key points
+<br />
+Example:
+```
+p {
+  text-align: center;
+  font-size: 20vh;
+
+  animation-name: demo;
+  animation-duration: 3s;
+}
+@keyframes demo {
+  from {
+    font-size: 0vh;
+  }
+
+  95% {
+    font-size: 21vh;
+  }
+
+  to {
+    font-size: 20vh;
+  }
+}
+```
