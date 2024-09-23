@@ -171,3 +171,20 @@ applies changes to specific element/element section
   border-left: solid 1em purple;
 }
 ```
+## Attribute selector
+select element with given attribute
+```
+p[class='summary'] {
+  color: red;
+}
+```
+## Pseudo selector
+Depending on mouse position etc... select
+```
+section:hover {
+  border-left: solid 1em purple;
+}
+```
+# 9/23/24 Declarations
+Table of declarations and other stuff
+[Table](https://learn.cs260.click/page/css/declarations/declarations_md)
