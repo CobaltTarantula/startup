@@ -108,7 +108,7 @@ p {
 }
 ```
 p = selector
-/n
+\n
 font-family, font-size, color, text-shadow = declarations
 ## Associating CSS with HTML
 1. use **style** element to explicitly assign >=1 declarations
