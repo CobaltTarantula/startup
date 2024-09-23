@@ -125,11 +125,9 @@ When making declarations, the most "inside" a declaration is in the doc makes it
 4. Margin (whitespace)
 # 9/23/24 Selectors
 ## Element type selector
+Makes all fonts of the body sans serif:
 ```
 body {
   font-family: sans-serif;
 }
-<!--
-Makes all font of body be sans-serif
- -->
 ```
