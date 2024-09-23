@@ -115,3 +115,11 @@ font-family, font-size, color, text-shadow = declarations
 2. use **style** element to define CSS rules within HTML doc (in head element of html)
 3. use **link** element to connect to CSS file with the rules (in head element of html)
    - Generally the best
+## Cascading Styles
+When making declarations, the most "inside" a declaration is in the doc makes it the highest priority.
+## Box model
+1. Content (text/image)
+   - By default, the width and height of an element is defined by the width and height of the content box. You can change the box-sizing CSS property from the default value of content-box to border-box in order to redefine the width and height to also include the padding and the border. This often makes it easier to style elements when their visual size matches their actual size.
+2. Padding (background color)
+3. Border (color, thickness, line style)
+4. Margin (whitespace)
