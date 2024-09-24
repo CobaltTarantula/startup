@@ -94,3 +94,167 @@ while in simon-html ->
 git clone https://github.com/webprogramming260/simon-html.git
 ./deployFiles.sh -k ../mcwhertor.pem -h morsedecoder.click -s simon
 ```
+# 9/23/2024 CSS Intro
+CSS takes HTML and makes it pretty and interactive.
+- **rulesets:** rules
+   - **selecter:** selects element to apply style rule to
+   - **declarations:** represent the **property** to style with the given **property value**
+```
+p {
+  font-family: sans-serif;
+  font-size: 2em;
+  color: navy;
+  text-shadow: 3px 3px 1px #cccccc;
+}
+```
+p = selector
+<br />
+font-family, font-size, color, text-shadow = declarations
+## Associating CSS with HTML
+1. use **style** element to explicitly assign >=1 declarations
+2. use **style** element to define CSS rules within HTML doc (in head element of html)
+3. use **link** element to connect to CSS file with the rules (in head element of html)
+   - Generally the best
+## Cascading Styles
+When making declarations, the most "inside" a declaration is in the doc makes it the highest priority.
+## Box model
+1. Content (text/image)
+   - By default, the width and height of an element is defined by the width and height of the content box. You can change the box-sizing CSS property from the default value of content-box to border-box in order to redefine the width and height to also include the padding and the border. This often makes it easier to style elements when their visual size matches their actual size.
+2. Padding (background color)
+3. Border (color, thickness, line style)
+4. Margin (whitespace)
+
+# CSS Selectors
+## Element type selector
+Makes all fonts of the body sans serif:
+```
+body {
+  font-family: sans-serif;
+}
+```
+Applies bottom border to heading and modifies element and background colors:
+```
+h1 {
+  border-bottom: thin black solid;
+}
+
+section {
+  background: #eeeeee;
+  padding: 0.25em;
+  margin-bottom: 0.5em;
+}
+```
+## Combinators
+changes color of second level heading within sections only (**descendant combinator**)
+```
+section h2 {
+  color: #004400;
+}
+```
+various combinators exist
+## Class selector
+Makes all elements of the specific paragraph of the summary class bold:
+```
+.summary {
+  font-weight: bold;
+}
+```
+Makes all elements of all paragrapsh of the summary class bold:
+```
+p.summary {
+  font-weight: bold;
+}
+```
+## ID selector
+applies changes to specific element/element section
+```
+#physics {
+  border-left: solid 1em purple;
+}
+```
+## Attribute selector
+select element with given attribute
+```
+p[class='summary'] {
+  color: red;
+}
+```
+## Pseudo selector
+Depending on mouse position etc... select
+```
+section:hover {
+  border-left: solid 1em purple;
+}
+```
+# CSS Declarations
+[Table](https://learn.cs260.click/page/css/declarations/declarations_md) of declarations and other stuff
+# 9/23/24 CSS Fonts
+## Font Families
+**font-family:** defines what fonts should be used
+1. Serif
+   - extra strokes
+2. sans-serif
+   - no extra strokes
+3. fixed
+   - all chars same size
+4. symbol
+   - non language chars
+## Importing fonts
+**@font-face:** loads an outside sourced font
+<br />
+Example of grabbing font from local server:
+```
+@font-face {
+  font-family: 'Quicksand';
+  src: url('https://cs260.click/fonts/quicksand.ttf');
+}
+
+p {
+  font-family: Quicksand;
+}
+```
+Example of outsourcing fonts:
+```
+@import url('https://fonts.googleapis.com/css2?family=Rubik Microbe&display=swap');
+
+p {
+  font-family: 'Rubik Microbe';
+}
+```
+# CSS Animation
+__animation:__ various properties to be edited in the animation
+<br />
+**keyframes:** snapshots at key points
+<br />
+Example:
+```
+p {
+  text-align: center;
+  font-size: 20vh;
+
+  animation-name: demo;
+  animation-duration: 3s;
+}
+@keyframes demo {
+  from {
+    font-size: 0vh;
+  }
+
+  95% {
+    font-size: 21vh;
+  }
+
+  to {
+    font-size: 20vh;
+  }
+}
+```
+# 9/24/24 Response Grid CSS Code
+```
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: 300px;
+  grid-gap: 1em;
+}
+```
