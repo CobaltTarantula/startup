@@ -34,9 +34,8 @@ Have you ever wished you knew another language? Do you sometimes wish to hide yo
   * Game over page
   * High Scores page
   * Morse code key page
-- [ ] **Links** - TO DO
+- [x] **Links** - Links on top of screen go to each page. Once CSS is implemented, buttons will have functionality to link between pages as well.
 - [x] **Text** - The game over screen displays text along with the scores to describe them.
-  - [ ] Add instructions on how to play?
 - [x] **Images** - On the key page, the image of the morse code key is displayed.
 - [x] **3rd Party calls** - The quote or phrase to be translated on both versions of the game page will be randomly generated from a 3rd party. 
 - [x] **DB/Login** - Input box and submit button for login. The player high scores, and personal high scores represent data pulled from the database.
