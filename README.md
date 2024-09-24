@@ -26,6 +26,21 @@ Have you ever wished you knew another language? Do you sometimes wish to hide yo
 * WebSocket
   - As players score their deecoding/coding, the top players and their scores are broadcasted to other users.
 ### HTML
+- [x] **HTML pages**
+  * Home page with login
+  * Play page with two options of which version to play
+  * English-Morse game page
+  * Morse-English game page
+  * Game over page
+  * High Scores page
+  * Morse code key page
+- [ ] **Links** - TO DO
+- [x] **Text** - The game over screen displays text along with the scores to describe them.
+  - [ ] Add instructions on how to play?
+- [x] **Images** - On the key page, the image of the morse code key is displayed.
+- [x] **3rd Party calls** - The quote or phrase to be translated on both versions of the game page will be randomly generated from a 3rd party. 
+- [x] **DB/Login** - Input box and submit button for login. The player high scores, and personal high scores represent data pulled from the database.
+- [x] **WebSocket** - On the game page, realtime scores are displayed.
 ### CSS
 ### React
 ### Service
