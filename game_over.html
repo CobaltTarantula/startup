@@ -34,46 +34,26 @@
     </header>
 
     <main>
-      <div class="players">
-        Player:
-        <span class="player-name">Mystery player</span>
-      </div>
-      <ul class="notification">
-        <li class="player-name">Tim started a new game</li>
-        <li class="player-name">Ada started a new game</li>
-        <li class="player-name">Tim scored 337 l/s</li>
-      </ul>
-
-      <!-- More formatting with old style HTML -->
-      
-      <h2>Code!</h2>
-
       <div>
-      <span>⏰</span>
-      00:00
-      </div>
-
-      <br />
-
-      <div id="quote">
-        <div>Words are cheap. Show me the code.</div>
-        <div>- Linus Torvalds</div>
-      </div>
-
-      <br />
-
-      <div>
-        <label for="count">English to Morse code:</label>
+        <h1>Game Over</h1>
+        <label for="count"><h2>Score</h2></label>
+        You wrote 
+        <input type="text" id="letters" value="--" readonly />
+        letters in
+        <input type="text" id="seconds" value="--" readonly />
+        seconds.
         <br />
-        <input type="text" placeholder="--/---/.-./.../." />
+        Your score is 
+        <input type="text" id="score" value="--" readonly />
+        l/s.
       </div>
-    </main>
 
-    <footer>
-      <hr />
-      <span class="text-reset">Zachary Clifford</span>
       <br />
-      <a href="https://github.com/CobaltTarantula/startup.git">GitHub</a>
-    </footer>
-  </body>
-</html>
+
+      <div>
+        <button>Play again</button>
+        <br />
+        <button>Menu</button>
+      </div>
+
+      <br />
