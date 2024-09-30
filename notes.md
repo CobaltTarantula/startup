@@ -264,6 +264,7 @@ use inspect after the launch live funciton in vscode to check on html and css de
 example: index.html and index.css in my debugging_css folder
 # 9/30/20 Simon CSS
 cloned it then deployed it
+**MAKE SURE TO DEPLOY IN GITBASH INSIDE DIRECTORY TO DEPLOY**
 ```
 git clone https://github.com/webprogramming260/simon-css.git
 ./deployFiles.sh -k ../{KEY}.pem -h morsedecoder.click -s simon
