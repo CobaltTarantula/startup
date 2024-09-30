@@ -60,8 +60,8 @@ A footnote can also have multiple lines[^2].
 * [instance_updated](https://morsedecoder.click)
 * console ssh connect command = 
 ```
-ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@3.93.166.106
-ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/mcwhertor.pem ubuntu@morsedecoder.click
+ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/{KEY}.pem ubuntu@3.93.166.106
+ssh -i ~/OneDrive/Desktop/byu24-25/CS_260/{KEY}.pem ubuntu@morsedecoder.click
 ```
 # Startup Ideas
 * ultimate rock paper scissors
@@ -92,7 +92,7 @@ In order to clone and then deploy simon on my site ->
 while in simon-html ->
 ```
 git clone https://github.com/webprogramming260/simon-html.git
-./deployFiles.sh -k ../mcwhertor.pem -h morsedecoder.click -s simon
+./deployFiles.sh -k ../{KEY}.pem -h morsedecoder.click -s simon
 ```
 # 9/23/2024 CSS Intro
 CSS takes HTML and makes it pretty and interactive.
@@ -257,4 +257,14 @@ p {
   grid-auto-rows: 300px;
   grid-gap: 1em;
 }
+```
+# 9/30/24 Debugging CSS
+use inspect after the launch live funciton in vscode to check on html and css debugging.
+<br />
+example: index.html and index.css in my debugging_css folder
+# 9/30/20 Simon CSS
+cloned it then deployed it
+```
+git clone https://github.com/webprogramming260/simon-css.git
+./deployFiles.sh -k ../{KEY}.pem -h morsedecoder.click -s simon
 ```
