@@ -272,9 +272,35 @@ git clone https://github.com/webprogramming260/simon-css.git
 # JavaScript
 ## 10/8/24 Scope
 JavaScript has four different types of scope:
-1. **Global** - Visible to all code
-2. **Module** - Visible to all code running in a module
-3. **Function** - Visible within a function
-4. **Block** - Visible within a block of code delimited by curly braces
-**Var** - variable declaration that is logically hoisted to top of function (doesn't update properly)
+1. _Global_ - Visible to all code
+2. _Module_ - Visible to all code running in a module
+3. _Function_ - Visible within a function
+4. _Block_ - Visible within a block of code delimited by curly braces
 <br />
+- **Var** - variable declaration that is logically hoisted to top of function (doesn't update properly)
+- **This** -  depending on context references different things
+   1. _Global_ - When this is referenced outside a function or object it refers to the globalThis object. The globalThis object represents the context for runtime environment. For example, when running in a browser, globalThis refers to the browser's window object.
+   2. _Function_ - When this is referenced in a function it refers to the object that owns the function. That is either an object you defined or globalThis if the function is defined outside of an object. Note that when running in JavaScript strict mode, a global function's this variable is undefined instead of globalThis.
+   3. _Object_ - When this is referenced in an object it refers to the object.
+- **Closure** - A closure is defined as a function and its surrounding state. That means whatever variables are accessible when a function is created are available inside that function. This holds true even if you pass the function outside of the scope of its original creation.
+
+## Modules
+- Examples
+   - Node.js (CommonJS modules)
+   - ES6
+   - JavaScript (ES modules) _we gonna use this one_
+- you must explicitly export the objects from one file and then import them into another file
+- When doing html only module can access module
+
+## DOM
+- global variable **document** points to root element of DOM
+- everything in HTML doc is node in DOM
+- there's a bunch more, but i cannot focus so imma read it when i do the assignment
+
+## Local Storage
+| Function | Meaning |
+| -------- | ------- |
+| setItem(name, value) | Sets a named item's value into local storage |
+| getItem(name) | Gets a named item's value from local storage |
+| removeItem(name) | Removes a named item from local storage |
+| clear() | Clears all items in local storage |
