@@ -305,3 +305,9 @@ JavaScript has four different types of scope:
 | removeItem(name) | Removes a named item from local storage |
 | clear() | Clears all items in local storage |
 - A local storage value must be of type string, number, or boolean. If you want to store a JavaScript object or array, then you must first convert it to a JSON string with JSON.stringify() on insertion, and parse it back to JavaScript with JSON.parse() when retrieved.
+
+# 10/8/24 (In class lecture) JavaScript
+- Primary use for JavaScript
+   - Manipulating the DOM
+   - Functionality
+- Can be in attr in html, script elem, or link to file
