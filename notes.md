@@ -269,3 +269,12 @@ cloned it then deployed it
 git clone https://github.com/webprogramming260/simon-css.git
 ./deployFiles.sh -k ../{KEY}.pem -h morsedecoder.click -s simon
 ```
+# JavaScript
+## 10/8/24 Scope
+JavaScript has four different types of scope:
+1. **Global** - Visible to all code
+2. **Module** - Visible to all code running in a module
+3. **Function** - Visible within a function
+4. **Block** - Visible within a block of code delimited by curly braces
+**Var** - variable declaration that is logically hoisted to top of function (doesn't update properly)
+<br />
