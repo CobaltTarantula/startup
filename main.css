@@ -19,3 +19,11 @@ main {
     border: 1px solid #ccc;    /* Optional border styling */
     margin: 20px 0;  
 }
+
+form {
+    display: flex;
+    flex-direction: column; /* Stack form elements vertically */
+    align-items: center;    /* Center form items horizontally */
+    gap: 10px;              /* Adds space between form elements */
+    justify-content: center; /* Vertically center the content */
+}
