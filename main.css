@@ -1,1 +1,13 @@
-/*erased*/
+main {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center content vertically */
+    align-items: center;     /* Center content horizontally */
+    height: calc(100vh - 150px); /* Account for header and footer height */
+    margin: 0;
+}
+
+.h-center {
+    text-align: center;
+    margin-bottom: 20px; /* Add spacing between the h1 and form */
+}
