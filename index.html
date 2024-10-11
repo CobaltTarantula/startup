@@ -18,20 +18,37 @@
       <h1>Morse Decoder</h1>
 
       <!-- Navigation elements -->
-      <nav>
-        <!-- Menu is a semantic alternative to <ul> that represents an interaction -->
-        <menu>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="play.html">Play</a>
-            <ul>
-              <li> <a href = "english-morse.html">English to Morse</a></li>
-              <li> <a href = "morse-english.html"> Morse to English</a></li>
-              <li><a href="game_over.html">Game Over</a></li>
+      <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Play
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="english-morse.html">English to Morse</a></li>
+                  <li><a class="dropdown-item" href="morse-english.html">Morse to English</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="game_over.html">Game Over</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="scores.html">Scores</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="key.html">Key</a>
+              </li>
             </ul>
-          </li>
-          <li><a href="scores.html">Scores</a></li>
-          <li><a href="key.html">Key</a></li>
-        </menu>
+          </div>
+        </div>
       </nav>
 
       <!-- Since we don't have the ability to style we use old style HTML to give some visual formatting -->
