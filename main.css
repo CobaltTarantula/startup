@@ -27,3 +27,8 @@ form {
     gap: 10px;              /* Adds space between form elements */
     justify-content: center; /* Vertically center the content */
 }
+
+footer {
+    background: #000;
+    color: white;
+}
