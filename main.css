@@ -32,3 +32,21 @@ footer {
     background: #000;
     color: white;
 }
+
+table {
+    margin: 0 auto;           /* Centers the table horizontally */
+    max-width: 25%;           /* Optional: restricts the table's width to 80% of the page */
+    border-collapse: collapse; /* Ensure proper border rendering */
+}
+
+td, th {
+    padding: 10px;            /* Optional: adds some padding to table cells */
+    text-align: center;       /* Optional: centers the text within the cells */
+    border: 3px solid black;  /* Sets the border thickness for inner cells */
+}
+
+@media (max-width: 600px) {
+    table {
+        max-width: 100%;      /* Ensures table takes up full width on smaller screens */
+    }
+}
