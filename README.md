@@ -41,6 +41,12 @@ Have you ever wished you knew another language? Do you sometimes wish to hide yo
 - [x] **DB/Login** - Input box and submit button for login. The player high scores, and personal high scores represent data pulled from the database.
 - [x] **WebSocket** - On the game page, realtime scores are displayed.
 ### CSS
+- [x] Header, footer, and main body content
+- [x]  Navigation elements - I have a functional navbar that accesses all pages, will change so that game over screen along with different game modes only accessible through buttons or ending the game. same with score page.
+- [x]  Responsive to window resizing - My app should look great on all window sizes and devices
+- [x]  Application elements - Used good contrast and whitespace
+- [x]  Application text content - Consistent fonts
+- [x]  Application images - my image is centered on screen above the table on the key page
 ### React
 ### Service
 ### DB/Login
