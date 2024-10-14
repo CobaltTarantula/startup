@@ -306,6 +306,44 @@ JavaScript has four different types of scope:
 | clear() | Clears all items in local storage |
 - A local storage value must be of type string, number, or boolean. If you want to store a JavaScript object or array, then you must first convert it to a JSON string with JSON.stringify() on insertion, and parse it back to JavaScript with JSON.parse() when retrieved.
 
+## 10/14/24 Promises
+- for long running or blocking tasks
+- Steps
+   1. **pending** - Currently running asynchronously
+   2. **fulfilled** - Completed successfully
+   3. **rejected** - Failed to complete
+- calling resolve returns either fulfilled or rejected after pending
+- then, catch, finally
+
+## Async/await
+```
+try {
+  const result = await coinToss();
+  console.log(`Toss result ${result}`);
+} catch (err) {
+  console.error(`Error: ${err}`);
+} finally {
+  console.log(`Toss completed`);
+}
+```
+async:
+```
+async function cow() {
+  return 'moo';
+}
+console.log(cow());
+// OUTPUT: Promise {<fulfilled>: 'moo'}
+```
+await
+```
+console.log(cow());
+// OUTPUT: Promise {<pending>}
+
+console.log(await cow());
+// OUTPUT: moo
+```
+- With async/await, you can clarify the code intent by hiding the promise syntax, and also make the execution block until the promise is resolved.
+
 # 10/8/24 (In class lecture) JavaScript
 - Primary use for JavaScript
    - Manipulating the DOM
