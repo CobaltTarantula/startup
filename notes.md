@@ -344,8 +344,35 @@ console.log(await cow());
 ```
 - With async/await, you can clarify the code intent by hiding the promise syntax, and also make the execution block until the promise is resolved.
 
-# 10/8/24 (In class lecture) JavaScript
+## 10/8/24 (In class lecture) JavaScript
 - Primary use for JavaScript
    - Manipulating the DOM
    - Functionality
 - Can be in attr in html, script elem, or link to file
+
+## 10/16/24 Debugging JavaScript
+- use console.log like a print debug
+- browser --> inspect --> sources
+
+## Node.js
+- If you are using Windows, then follow the installation instructions from the windows-nvm repository. Click on latest installer and then scroll down to the Assets and download and execute nvm-setup.exe. Once the installation is complete, you will need to open a new console window so that it gets the updated path that includes NVM.
+```
+➜ nvm install lts
+➜ nvm use lts
+```
+- check installation
+```
+➜ node -v
+v20.10.0
+```
+- can execute line of JS with ```-e``` parameter
+- execute file by passing to node (``` node filename.js ```)
+- or just run ```node``` then type code directly in interpreter
+- Main steps
+   1. Create your project directory
+   2. Initialize it for use with NPM by running npm init -y
+   3. Make sure .gitignore file contains node_modules
+   4. Install any desired packages with npm install <package name here>
+   5. Add require('<package name here>') to your application's JavaScript
+   6. Use the code the package provides in your JavaScript
+   7. Run your code with node index.js
