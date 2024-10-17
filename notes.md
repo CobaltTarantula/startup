@@ -383,4 +383,12 @@ v20.10.0
 - Ex:
    - alert.js
    - main.js
-- grab data from each other (different js files) by ```export function()``` and ```import {function()} from './file.js'```
+- grab data from each other (different js files) by ```export function()``` in alert.js and ```import {function()} from './alert.js'``` in main.js
+## Packages
+- gotta run NVM to install Node which automatically installs NPM
+   - lets you run JS outside of browser
+   - allows for importing JS packages from outside
+     - be careful tho
+- don't need to push to github, NPM can do that for you
+- ```require('package')``` inside .js to import from package
+- 
