@@ -376,3 +376,11 @@ v20.10.0
    5. Add require('<package name here>') to your application's JavaScript
    6. Use the code the package provides in your JavaScript
    7. Run your code with node index.js
+
+# 10/17/24 Lecture
+- a bunch of stuff already in back end chief
+## Modules
+- Ex:
+   - alert.js
+   - main.js
+- grab data from each other (different js files) by ```export function()``` and ```import {importedThing} from './file.js'```
