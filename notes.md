@@ -383,4 +383,4 @@ v20.10.0
 - Ex:
    - alert.js
    - main.js
-- grab data from each other (different js files) by ```export function()``` and ```import {importedThing} from './file.js'```
+- grab data from each other (different js files) by ```export function()``` and ```import {function()} from './file.js'```
