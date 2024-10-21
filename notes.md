@@ -400,3 +400,4 @@ v20.10.0
 ## React
 - abstracts HTML into a JS variant **JSX**
 - **Babel:** preprocessor that converts JSX into valid HTML and JS formats
+- The React.createElement function will then generate DOM elements and monitor the data they represent for changes. When a change is discovered, React will trigger dependent changes.
