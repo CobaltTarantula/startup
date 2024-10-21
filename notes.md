@@ -401,3 +401,19 @@ v20.10.0
 - abstracts HTML into a JS variant **JSX**
 - **Babel:** preprocessor that converts JSX into valid HTML and JS formats
 - The React.createElement function will then generate DOM elements and monitor the data they represent for changes. When a change is discovered, React will trigger dependent changes.
+### Hooks
+- allow React function style components to be able to do everything that a class style component can do and more
+- useState and useEffect
+   - useEffect ex for running a function every time the component completes rendering
+```
+function UseEffectHookDemo() {
+  React.useEffect(() => {
+    console.log('rendered');
+  });
+
+  return <div>useEffectExample</div>;
+}
+
+ReactDOM.render(<UseEffectHookDemo />, document.getElementById('root'));
+```
+- can specify dependencies
