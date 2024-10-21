@@ -391,4 +391,12 @@ v20.10.0
      - be careful tho
 - don't need to push to github, NPM can do that for you
 - ```require('package')``` inside .js to import from package
-- 
+
+# 10/21/24 Web frameworks
+- **Vue:** combines HTML, CSS, and JS in one file
+- **Svelt:** does the same as Vue but requires a transpiler to generate browser-ready code, instead of a runtime virtual DOM
+- **React:** combines HTML and JS
+- **Angular component:** defines what JavaScript, HTML, and CSS are combined together. This keeps a fairly strong separation of files that are usually grouped together in a directory rather than using the single file representation. 
+## React
+- abstracts HTML into a JS variant **JSX**
+- **Babel:** preprocessor that converts JSX into valid HTML and JS formats
