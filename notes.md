@@ -355,6 +355,7 @@ console.log(await cow());
 - browser --> inspect --> sources
 
 ## Node.js
+- runtime for JS on the server side
 - If you are using Windows, then follow the installation instructions from the windows-nvm repository. Click on latest installer and then scroll down to the Assets and download and execute nvm-setup.exe. Once the installation is complete, you will need to open a new console window so that it gets the updated path that includes NVM.
 ```
 ➜ nvm install lts
@@ -387,7 +388,7 @@ v20.10.0
 ## Packages
 - gotta run NVM to install Node which automatically installs NPM
    - lets you run JS outside of browser
-   - allows for importing JS packages from outside
+   - _allows for importing JS packages from outside_
      - be careful tho
 - don't need to push to github, NPM can do that for you
 - ```require('package')``` inside .js to import from package
@@ -399,7 +400,7 @@ v20.10.0
 - **Angular component:** defines what JavaScript, HTML, and CSS are combined together. This keeps a fairly strong separation of files that are usually grouped together in a directory rather than using the single file representation. 
 ## React
 - abstracts HTML into a JS variant **JSX**
-- **Babel:** preprocessor that converts JSX into valid HTML and JS formats
+- **Babel:** preprocessor/transpiler that converts JSX into valid HTML and JS formats
 - The React.createElement function will then generate DOM elements and monitor the data they represent for changes. When a change is discovered, React will trigger dependent changes.
 ### Hooks
 - allow React function style components to be able to do everything that a class style component can do and more
@@ -417,3 +418,14 @@ function UseEffectHookDemo() {
 ReactDOM.render(<UseEffectHookDemo />, document.getElementById('root'));
 ```
 - can specify dependencies
+# 10/22/24 React: Components, Reactivity, Hooks, Router
+- **web framework:**
+   - simplify common patterns
+   - provide common components
+   - improve performance
+   - increase device coverage
+- React combines HTML and CSS through JSX
+- to make it faster, makes virtual copy of DOM to change
+- React is component based as opposed to page based
+- [component example](https://codepen.io/CobaltTarantula/pen/PoMJORO)
+- also check forked CodePens
