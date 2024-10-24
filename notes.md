@@ -424,8 +424,18 @@ ReactDOM.render(<UseEffectHookDemo />, document.getElementById('root'));
    - provide common components
    - improve performance
    - increase device coverage
-- React combines HTML and CSS through JSX
+- React combines HTML and CSS through **JSX**
 - to make it faster, makes virtual copy of DOM to change
-- React is component based as opposed to page based
+   - makes updates faster to run
+   - moniters changes in the state and to components
+- React is **component** based as opposed to page based
 - [component example](https://codepen.io/CobaltTarantula/pen/PoMJORO)
 - also check forked CodePens
+# 10/24/24 React: Router, Simon, Toolchain
+- navigation based components
+- **Router:** way to functionalize nav
+- **Toolchain:**
+   - npm run build (slow debug version instead of live deploy)
+   - vite build (Babel, transpile, bundle, polyfill, etc...)
+   - compress
+   - /public/index.html
