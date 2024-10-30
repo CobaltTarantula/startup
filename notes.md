@@ -439,3 +439,13 @@ ReactDOM.render(<UseEffectHookDemo />, document.getElementById('root'));
    - vite build (Babel, transpile, bundle, polyfill, etc...)
    - compress
    - /public/index.html
+# 10/29/24 Simon React
+- once P1 is done:
+```
+npm install
+npm run dev
+o
+```
+<- this will run the first part in your browser
+- vim bindings can help with find and replace, and complex text editing
+- authState to authenticate
