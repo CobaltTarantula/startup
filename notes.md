@@ -458,9 +458,10 @@ o
 ```
 dig byu.edu
 ```
-- `dig` generates the IP address of a domain name
-- by using `traceroute` can find the hops in connection
+- ```dig``` generates the IP address of a domain name
+- by using ```traceroute``` can find the hops in connection
 
+TCP/ICP layers of sending data:
 | Layer       | Example          | Purpose                               |
 | ----------- | ---------------- | ------------------------------------- |
 | Application | HTTPS            | Functionality like web browsing       |
@@ -468,3 +469,65 @@ dig byu.edu
 | Internet    | IP               | Establishing connections              |
 | Link        | Fiber, hardware  | Physical connections                  |
 
+# Web Servers
+- **Web server:** computing device that is hosting a web service that knows how to accept incoming internet connections and speak the HTTP application protocol.
+- **Monolithic servers:** package of server and software, big and clunky, olden days
+- now we use **libraries** which help make connections
+- now it is SO easy to build web services (using **go** can be helpful)
+- we gonna use **Caddy**
+- **microservice:** web service that provides a single function
+- **serverless:** writing functions that speak HTTP directly and don't need servers
+
+# Domain Names
+- **domain name registry:** storage of all domain names
+- [subdomain.]*secondary.top = ```simon.morsedecoder.click```
+- if you own the **root domain** (secondary) then you can make as many subdomains as desired
+- ```whois``` to find subdomains
+- **DNS:** domain name system
+- **A record:** address, direct mapping of domain to IP
+- **CNAME:** canonical name record, maps domains to domains
+- **authoritative name servers:** every DNS server refs these to associate domain with IP
+- can get domains at varying prices, the most unused are the cheapest
+
+# Web services introduction
+- **frontend:** html and css references in the browser
+- **backend:** functionality provided by web service
+   - can also use ```fetch``` to make requests of other web services
+- **endpoints:** (sometimes APIs) functions provided by web service
+
+# URL
+- **URL:** uniform resource locater, represents the location of a web resource
+- **web resource:** can be anything, such as a web page, font, image, video stream, database record, or JSON object. It can also be completely ephemeral, such as a visitation counter, or gaming session.
+- URL syntax: ```<scheme>://<domain name>:<port>/<path>?<parameters>#<anchor>```
+
+| Part        | Example                                | Meaning                                                                                                                                                                                                                                                                          |
+|-------------|----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Scheme      | https                                  | The protocol required to ask for the resource. For web applications, this is usually HTTPS. But it could be any internet protocol such as FTP or MAILTO.                                                                                                                        |
+| Domain name | byu.edu                                | The domain name that owns the resource represented by the URL.                                                                                                                                                                                                                   |
+| Port        | 3000                                   | The port specifies the numbered network port used to connect to the domain server. Lower number ports are reserved for common internet protocols, higher number ports can be used for any purpose. The default port is 80 if the scheme is HTTP, or 443 if the scheme is HTTPS.  |
+| Path        | /school/byu/user/8014                  | The path to the resource on the domain. The resource does not have to physically be located on the file system with this path. It can be a logical path representing endpoint parameters, a database table, or an object schema.                                               |
+| Parameters  | filter=names&highlight=intro,summary   | The parameters represent a list of key-value pairs. Usually, it provides additional qualifiers on the resource represented by the path. This might be a filter on the returned resource or how to highlight the resource. The parameters are also sometimes called the query string. |
+| Anchor      | summary                                | The anchor usually represents a sub-location in the resource. For HTML pages, this represents a request for the browser to automatically scroll to the element with an ID that matches the anchor. The anchor is also sometimes called the hash or fragment ID.                    |
+
+- **URN:** uniform resource name, unique resource name that does not specify location information
+- **URI:** unifrom resource identifier, a general resource identifier that could refer to either a URL or a URN
+- Generally not talking about URIs, but URLs
+
+# Ports
+- necessary to have both an IP address and numbered port to connect to internet
+- Ports from 0 to 1023 represent standard protocols.
+- Ports from 1024 to 49151 represent ports that have been assigned to requesting entities.
+- Ports from 49152 to 65535 are considered dynamic and are used to create dynamic connections to a device.
+
+| Port | Protocol |
+| ---- | -------- |
+| 20 | File Transfer Protocol (FTP) for data transfer |
+| 22 | Secure Shell (SSH) for connecting to remote devices |
+| 25 | Simple Mail Transfer Protocol (SMTP) for sending email |
+| 53 | Domain Name System (DNS) for looking up IP addresses |
+| 80 | Hypertext Transfer Protocol (HTTP) for web requests |
+| 110 | Post Office Protocol (POP3) for retrieving email |
+| 123 | Network Time Protocol (NTP) for managing time |
+| 161 | Simple Network Management Protocol (SNMP) for managing network devices such as routers or printers |
+| 194 | Internet Relay Chat (IRC) for chatting |
+| 443 | HTTP Secure (HTTPS) for secure web requests |
