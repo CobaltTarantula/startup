@@ -449,3 +449,20 @@ o
 <- this will run the first part in your browser
 - vim bindings can help with find and replace, and complex text editing
 - authState to authenticate
+# Internet
+- **internet:** connection between computers
+- in order for interdevice communication, an **IP address** is necessary
+   - generally a bunch of numbers
+- people like using **domain names** to represent IP addresses
+   - something.com
+```
+dig byu.edu
+```
+- `dig` generates the IP address of a domain name
+- by using `traceroute` can find the hops in connection
+|Layer	|Example	|Purpose|
+|--------|--------|-------|
+|Application	|HTTPS	|Functionality like web browsing|
+|Transport	|TCP	|Moving connection information packets|
+|Internet	|IP	|Establishing connections|
+|Link	|Fiber, hardware	|Physical connections|
