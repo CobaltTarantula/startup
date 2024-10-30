@@ -461,9 +461,9 @@ dig byu.edu
 - `dig` generates the IP address of a domain name
 - by using `traceroute` can find the hops in connection
 <br />
-| Layer | Example | Purpose |
-| ----- | ------- | ------- |
-| Application | HTTPS | Functionality like web browsing |
-| Transport | TCP | Moving connection information packets |
-| Internet | IP | Establishing connections |
-| Link | Fiber, hardware | Physical connections |
+| Layer       | Example          | Purpose                               |
+| ----------- | ---------------- | ------------------------------------- |
+| Application | HTTPS            | Functionality like web browsing       |
+| Transport   | TCP              | Moving connection information packets |
+| Internet    | IP               | Establishing connections              |
+| Link        | Fiber, hardware  | Physical connections                  |
