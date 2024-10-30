@@ -531,3 +531,52 @@ TCP/ICP layers of sending data:
 | 161 | Simple Network Management Protocol (SNMP) for managing network devices such as routers or printers |
 | 194 | Internet Relay Chat (IRC) for chatting |
 | 443 | HTTP Secure (HTTPS) for secure web requests |
+
+- When you built your web server you externally exposed port 22 so that you could use SSH to open a remote console on the server, port 443 for secure HTTP communication, and port 80 for unsecure HTTP communication.
+- Caddy is listening on ports 80 and 443
+
+# HTTP
+- **HTTP:** Hypertext Transfer Protocol, how the web talks
+- conversation between web client and web server is through HTTP
+- to see HTTP exchange... ```curl -v -s http://info.cern.ch/hypertext/WWW/Helping.html```
+- first line of HTTP request contains the **verb** of the request
+
+| Verb    | Meaning                                                                                                                                                                                                                                                   |
+|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| GET     | Get the requested resource. This can represent a request to get a single resource or a resource representing a list of resources.                                                                                                                          |
+| POST    | Create a new resource. The body of the request contains the resource. The response should include a unique ID of the newly created resource.                                                                                                              |
+| PUT     | Update a resource. Either the URL path, HTTP header, or body must contain the unique ID of the resource being updated. The body of the request should contain the updated resource. The body of the response may contain the resulting updated resource.  |
+| DELETE  | Delete a resource. Either the URL path or HTTP header must contain the unique ID of the resource to delete.                                                                                                                                                |
+| OPTIONS | Get metadata about a resource. Usually, only HTTP headers are returned. The resource itself is not returned.                                                                                                                                               |
+| Code | Text                  | Meaning                                                                                                                   |
+|------|-----------------------|---------------------------------------------------------------------------------------------------------------------------|
+| 100  | Continue              | The service is working on the request                                                                                     |
+| 200  | Success               | The requested resource was found and returned as appropriate.                                                             |
+| 201  | Created               | The request was successful and a new resource was created.                                                                |
+| 204  | No Content            | The request was successful but no resource is returned.                                                                  |
+| 304  | Not Modified          | The cached version of the resource is still valid.                                                                        |
+| 307  | Permanent Redirect    | The resource is no longer at the requested location. The new location is specified in the response location header.       |
+| 308  | Temporary Redirect    | The resource is temporarily located at a different location. The temporary location is specified in the response location header. |
+| 400  | Bad Request           | The request was malformed or invalid.                                                                                     |
+| 401  | Unauthorized          | The request did not provide a valid authentication token.                                                                |
+| 403  | Forbidden             | The provided authentication token is not authorized for the resource.                                                    |
+| 404  | Not Found             | An unknown resource was requested.                                                                                        |
+| 408  | Request Timeout       | The request takes too long.                                                                                               |
+| 409  | Conflict              | The provided resource represents an out-of-date version of the resource.                                                 |
+| 418  | I'm a Teapot          | The service refuses to brew coffee in a teapot.                                                                           |
+| 429  | Too Many Requests     | The client is making too many requests in too short of a time period.                                                     |
+| 500  | Internal Server Error | The server failed to properly process the request.                                                                        |
+| 503  | Service Unavailable   | The server is temporarily down. The client should try again with an exponential back off.                                 |
+
+| Header                       | Example                                 | Meaning                                                                                                            |
+|------------------------------|-----------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| Authorization                | Bearer bGciOiJIUzI1NiIsI                | A token that authorizes the user making the request.                                                              |
+| Accept                       | image/*                                 | The format the client accepts. This may include wildcards.                                                        |
+| Content-Type                 | text/html; charset=utf-8                | The format of the content being sent. These are described using standard MIME types.                              |
+| Cookie                       | SessionID=39s8cgj34; csrftoken=9dck2    | Key-value pairs that are generated by the server and stored on the client.                                        |
+| Host                         | info.cern.ch                            | The domain name of the server. This is required in all requests.                                                  |
+| Origin                       | cs260.click                             | Identifies the origin that caused the request. A host may only allow requests from specific origins.              |
+| Access-Control-Allow-Origin  | https://cs260.click                     | Server response indicating which origins can make a request. This may include a wildcard.                         |
+| Content-Length               | 368                                     | The number of bytes contained in the response.                                                                    |
+| Cache-Control                | public, max-age=604800                  | Tells the client how it can cache the response.                                                                   |
+| User-Agent                   | Mozilla/5.0 (Macintosh)                 | The client application making the request.                                                                        |
