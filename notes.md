@@ -580,3 +580,16 @@ TCP/ICP layers of sending data:
 | Content-Length               | 368                                     | The number of bytes contained in the response.                                                                    |
 | Cache-Control                | public, max-age=604800                  | Tells the client how it can cache the response.                                                                   |
 | User-Agent                   | Mozilla/5.0 (Macintosh)                 | The client application making the request.                                                                        |
+# 10/31/24 Intro to backend
+- **backend:** code that runs on the server as opposed to the computer
+- "10." IP addresses are only for local work
+- 128.187.x.x adresses owned by BYU
+1. Physical AKA MAC Address
+   - Wifi Cell
+   - Ethernet
+2. Internet (through DHCP)
+   - IPV6
+   - IPV4
+- "if you're living in Africa, most of your traffic is going through a satellite"
+- bro has no idea what we need to learn today
+   - he's a substitute
