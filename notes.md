@@ -595,3 +595,5 @@ TCP/ICP layers of sending data:
    - he's a substitute
 - introduced real life application of web development
    - familysearch+
+- don't pay money for APIs
+   - there are many for free
