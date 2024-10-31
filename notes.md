@@ -593,3 +593,5 @@ TCP/ICP layers of sending data:
 - "if you're living in Africa, most of your traffic is going through a satellite"
 - bro has no idea what we need to learn today
    - he's a substitute
+- introduced real life application of web development
+   - familysearch+
