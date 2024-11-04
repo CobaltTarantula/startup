@@ -597,3 +597,46 @@ TCP/ICP layers of sending data:
    - familysearch+
 - don't pay money for APIs
    - there are many for free
+  
+# 11/4/24 Node Web Service
+- JS code to listen -> Web service
+```
+mkdir webservicetest
+cd webservicetest
+npm init -y
+```
+- then paste the following code in index.js in vsCode
+```
+const http = require('http');
+const server = http.createServer(function (req, res) {
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.write(`<h1>Hello Node.js! [${req.method}] ${req.url}</h1>`);
+  res.end();
+});
+
+server.listen(8080, () => {
+  console.log(`Web service listening on port 8080`);
+});
+```
+- then if you run ```node index.js``` it should work
+## Debugging
+- replace main.js code with:
+```
+const express = require('express');
+const app = express();
+
+app.get('/*', (req, res) => {
+  res.send({ url: req.originalUrl });
+});
+
+const port = 8080;
+app.listen(port, function () {
+  console.log(`Listening on port ${port}`);
+});
+```
+- and a buncha other things
+
+# SOP & CORS
+- **same origin policy:** SOP, JS only can make requests to domain user is currently viewing
+- **cross origin resource sharing:** client specify origins of a request, server responds with legal origins
+- make sure to test any web services used so that they aren't blocked by the previous terms
