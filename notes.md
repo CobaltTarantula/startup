@@ -671,3 +671,5 @@ app.listen(port, function () {
 # Simon Service
 - steps to setup [simon service](https://learn.cs260.click/page/simon/simonService/simonService_md)
 # PM2
+- to keep programs running even after closing a console, gotta register it as a **daemon**
+- should be automatically setup?
