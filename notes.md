@@ -640,3 +640,34 @@ app.listen(port, function () {
 - **same origin policy:** SOP, JS only can make requests to domain user is currently viewing
 - **cross origin resource sharing:** client specify origins of a request, server responds with legal origins
 - make sure to test any web services used so that they aren't blocked by the previous terms
+
+# 11/5/24 Service Design
+## Model and Sequence Diagrams
+- gotta define the primary objects a user would recoginize/interact with during use
+- can use sequence diagram to help clarify model and endpoints(?)
+## Leveraging HTTP
+- HTTP has a lot of the functionality of stuff we might want in our service, so let's use that
+   - GET, POST, PUT, DELETE]
+## Endpoints
+- **endpoints:**
+   - AKA: **API**
+   - multiple in a web service
+   - each provides an individual service
+- when designing endpoints, gotta make 'em:
+   - **Grammatical:** everything is a **resource** (noun/object) which you act on with an HTTP verb 
+   - **Readable:** The resource you are referencing with an HTTP request should be clearly readable in the URL path.
+   - **Discoverable:** endpoints can expose aggregate endpoints (trees)
+   - **Compatible:** When you build your endpoints you want to make it so that you can add new functionality without breaking existing clients. Usually this means that the clients of your service endpoints should ignore anything that they don't understand.
+   - **Simple:** They should not focus on the data structure or devices used to host the resources. There should only be one way to act on a resource. Endpoints should only do one thing.
+   - **Documented:** [do it](https://spec.openapis.org/oas/latest.html)
+## RPC
+- **RPC:** remote procedure calls -> expose service endpoints as simple function calls.
+## REST
+- **REST:** Representational State Transfer -> attempts to take advantage of the foundational principles of HTTP
+## GraphQL
+- GraphQL focuses on the manipulation of data instead of a function call (RPC) or a resource (REST).
+- a query that specifies the desired data and how it should be joined and filtered
+
+# Simon Service
+- steps to setup [simon service](https://learn.cs260.click/page/simon/simonService/simonService_md)
+# PM2
