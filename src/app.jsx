@@ -34,18 +34,18 @@ export default function App() {
                       Play
                     </NavLink>
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <li><NavLink className="dropdown-item" to="play.html">Play</NavLink></li>
-                      <li><NavLink className="dropdown-item" to="english-morse.html">English to Morse</NavLink></li>
-                      <li><NavLink className="dropdown-item" to="morse-english.html">Morse to English</NavLink></li>
+                      <li><NavLink className="dropdown-item" to="/play">Play</NavLink></li>
+                      <li><NavLink className="dropdown-item" to="/english-morse">English to Morse</NavLink></li>
+                      <li><NavLink className="dropdown-item" to="morse-english">Morse to English</NavLink></li>
                       <li><hr className="dropdown-divider"></hr></li>
-                      <li><NavLink className="dropdown-item" to="game_over.html">Game Over</NavLink></li>
+                      <li><NavLink className="dropdown-item" to="game_over">Game Over</NavLink></li>
                     </ul>
                   </li>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="scores.html">Scores</NavLink>
+                    <NavLink className="nav-link" to="/scores">Scores</NavLink>
                   </li>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="key.html">Key</NavLink>
+                    <NavLink className="nav-link" to="/key">Key</NavLink>
                   </li>
                 </ul>
               </div>
