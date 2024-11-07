@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function Scores() {
   return (
-    <main className="h-center">
+    <main /*className="h-center"*/>
       <table className="table table-light">
         <thead className="table-primary">
           <tr>
