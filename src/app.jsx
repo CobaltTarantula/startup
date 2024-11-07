@@ -1,5 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './app.css';
 
 export default function App() {
@@ -8,7 +9,7 @@ export default function App() {
       <header className='container-fluid'>
         <nav className="navbar navbar-dark bg-dark">
           <div className="container-fluid">
-            <a className="navbar-brand" href="#">Navbar</a>
+            <a className="navbar-brand" href="#">MorseDecoder</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -45,9 +46,10 @@ export default function App() {
 
       <footer className='bg-dark text-white-50'>
         <div className='container-fluid'>
-          <span className='text-reset'>Author Name(s)</span>
-          <a className='text-reset' href='https://github.com/webprogramming260/simon-react'>
-            Source
+          <span className='text-reset'>Zack Clifford</span>
+          <br />
+          <a className='text-reset' href='https://github.com/CobaltTarantula/startup.git'>
+            Github
           </a>
         </div>
       </footer>
