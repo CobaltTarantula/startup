@@ -673,3 +673,7 @@ app.listen(port, function () {
 # PM2
 - to keep programs running even after closing a console, gotta register it as a **daemon**
 - should be automatically setup?
+
+# 11/7/24 Startup React
+- [ ]  import bootstrap on top of components where style is needed
+- [ ]  ```npm run dev``` works as should (checkpoint)
