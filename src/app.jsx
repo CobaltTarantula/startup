@@ -53,8 +53,6 @@ export default function App() {
           </nav>
         </header>
 
-        <main>App components go here</main>
-
         <Routes>
           <Route path='/' element={<Login />} exact />
           <Route path='/english-morse' element={<English_Morse />} />
