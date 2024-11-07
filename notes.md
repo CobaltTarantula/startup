@@ -650,9 +650,10 @@ app.listen(port, function () {
    - GET, POST, PUT, DELETE]
 ## Endpoints
 - **endpoints:**
-   - AKA: **API**
+   - AKA: **API** calls available through url
    - multiple in a web service
    - each provides an individual service
+   - functions defined in Express
 - when designing endpoints, gotta make 'em:
    - **Grammatical:** everything is a **resource** (noun/object) which you act on with an HTTP verb 
    - **Readable:** The resource you are referencing with an HTTP request should be clearly readable in the URL path.
@@ -676,4 +677,10 @@ app.listen(port, function () {
 
 # 11/7/24 Startup React
 - [ ]  import bootstrap on top of components where style is needed
-- [ ]  ```npm run dev``` works as should (checkpoint)
+- [x]  ```npm run dev``` works as should (checkpoint)
+- [x] header, nav elements, placeholder content, and footer implemented in react
+- [ ] white footer?
+
+# Web Services: Simon Service, Endpoint Design, PM2
+- **middleware:** functions that run as you get requests but before sending a response
+- **Express:** node package for doing middleware
