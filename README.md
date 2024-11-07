@@ -48,6 +48,11 @@ Have you ever wished you knew another language? Do you sometimes wish to hide yo
 - [x]  Application text content - Consistent fonts
 - [x]  Application images - my image is centered on screen above the table on the key page
 ### React
+- [x]  import bootstrap on top of components where style is needed
+  - imported in main.css i believe???
+- [x]  ```npm run dev``` works as should (checkpoint)
+- [x] header, nav elements, placeholder content, and footer implemented in react
+- [ ] white footer?
 ### Service
 ### DB/Login
 ### WebSocket

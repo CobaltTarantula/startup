@@ -675,12 +675,8 @@ app.listen(port, function () {
 - to keep programs running even after closing a console, gotta register it as a **daemon**
 - should be automatically setup?
 
-# 11/7/24 Startup React
-- [ ]  import bootstrap on top of components where style is needed
-- [x]  ```npm run dev``` works as should (checkpoint)
-- [x] header, nav elements, placeholder content, and footer implemented in react
-- [ ] white footer?
-
-# Web Services: Simon Service, Endpoint Design, PM2
+# 11/7/24 Web Services: Simon Service, Endpoint Design, PM2
 - **middleware:** functions that run as you get requests but before sending a response
 - **Express:** node package for doing middleware
+- cookies exist
+- index.js endpoints in simon-React
