@@ -57,6 +57,9 @@ export default function App() {
 
         <Routes>
           <Route path='/' element={<Login />} exact />
+          <Route path='/english-morse' element={<English_Morse />} />
+          <Route path='/game_over' element={<Game_Over />} />
+          <Route path='/morse-english' element={<Morse_English />} />
           <Route path='/play' element={<Play />} />
           <Route path='/scores' element={<Scores />} />
           <Route path='/key' element={<Key />} />
