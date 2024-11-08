@@ -53,21 +53,21 @@ export default function App() {
           </nav>
         </header>
 
-        <Routes 
-          path='/'
-          element={
-            <Login
-              userName={userName}
-              authState={authState}
-              onAuthChange={(userName, authState) => {
-                setAuthState(authState);
-                setUserName(userName);
-              }}
-            />
-          }
-          exact
-        />
-          <Route path='/' element={<Login />} exact />
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <Login
+                userName={userName}
+                authState={authState}
+                onAuthChange={(userName, authState) => {
+                  setAuthState(authState);
+                  setUserName(userName);
+                }}
+              />
+            }
+            exact
+          />
           <Route path='/english-morse' element={<English_Morse />} />
           <Route path='/game_over' element={<Game_Over />} />
           <Route path='/morse-english' element={<Morse_English />} />
