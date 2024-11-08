@@ -1,22 +1,11 @@
-import React from 'react';
+import { Players } from './players';
+import { MorseGame } from './morseGame';
 
-export function Play() {
+export function Play(props) {
   return (
-    <main>
-      <br />
-
-      <div>
-        <button type="button" className="btn btn-dark btn-lg">Code<br/>(English to Morse code)</button>
-      </div>
-
-      <br />
-      
-      <div>
-        <button type="button" className="btn btn-outline-primary btn-lg">Decode<br/>(Morse code to English)</button>
-      </div>
-
-      <br />
-
+    <main className='bg-secondary'>
+      <Players userName={props.userName} />
+      <MorseGame userName={props.userName} />
     </main>
   );
 }

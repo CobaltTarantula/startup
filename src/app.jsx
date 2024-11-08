@@ -5,7 +5,7 @@ import './app.css';
 
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 import { Login } from './login/login';
-import { Play } from './play/play';
+import { Play } from './gamemode/gamemode';
 import { Scores } from './scores/scores';
 import { Key } from './key/key';
 import { Morse_English } from './morse-english/morse-english';
@@ -38,14 +38,11 @@ export default function App() {
                   </li>
                   <li className="nav-item dropdown">
                     {authState === AuthState.Authenticated && (
-                      <NavLink className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <NavLink className="nav-link dropdown-toggle" to="/gamemode" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Play
                       </NavLink>
                     )}
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      {authState === AuthState.Authenticated && (
-                        <li><NavLink className="dropdown-item" to="/play">Play</NavLink></li>
-                      )}
                       {authState === AuthState.Authenticated && (
                         <li><NavLink className="dropdown-item" to="/english-morse">English to Morse</NavLink></li>
                       )}
