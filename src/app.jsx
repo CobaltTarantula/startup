@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './app.css';
@@ -13,7 +13,14 @@ import { English_Morse } from './english-morse/english-morse';
 import { Game_Over } from './game-over/game_over';
 import { Nav } from 'react-bootstrap';
 
+const AuthState = {
+  Authenticated: 'Authenticated',
+  Unauthenticated: 'Unauthenticated',
+};
+
 export default function App() {
+  const [authState, setAuthState] = useState(AuthState.Unauthenticated);
+  const [userName, setUserName] = useState('');
   return (
     <BrowserRouter>
       <div className='body bg-dark text-light'>
@@ -30,18 +37,26 @@ export default function App() {
                     <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
                   </li>
                   <li className="nav-item dropdown">
-                    <NavLink className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Play
-                    </NavLink>
+                    {authState === AuthState.Authenticated && (
+                      <NavLink className="nav-link dropdown-toggle" to="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Play
+                      </NavLink>
+                    )}
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                       {authState === AuthState.Authenticated && (
                         <li><NavLink className="dropdown-item" to="/play">Play</NavLink></li>
                       )}
-                      <li><NavLink className="dropdown-item" to="/english-morse">English to Morse</NavLink></li>
-                      <li><NavLink className="dropdown-item" to="morse-english">Morse to English</NavLink></li>
-                      <li><hr className="dropdown-divider"></hr></li>
-                      {authState === AuthState.Authenticated && ( 
-                        <li><NavLink className="dropdown-item" to="game_over">Game Over</NavLink></li>
+                      {authState === AuthState.Authenticated && (
+                        <li><NavLink className="dropdown-item" to="/english-morse">English to Morse</NavLink></li>
+                      )}
+                      {authState === AuthState.Authenticated && (  
+                        <li><NavLink className="dropdown-item" to="/morse-english">Morse to English</NavLink></li>
+                      )}
+                      {authState === AuthState.Authenticated && (  
+                        <li><hr className="dropdown-divider"></hr></li>
+                      )}
+                      {authState === AuthState.Authenticated && (  
+                        <li><NavLink className="dropdown-item" to="/game_over">Game Over</NavLink></li>
                       )}
                     </ul>
                   </li>
