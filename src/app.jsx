@@ -11,12 +11,12 @@ import { Key } from './key/key';
 import { Morse_English } from './morse-english/morse-english';
 import { English_Morse } from './english-morse/english-morse';
 import { Game_Over } from './game-over/game_over';
-import { Nav } from 'react-bootstrap';
+import { AuthState } from './login/authState'
 
-const AuthState = {
-  Authenticated: 'Authenticated',
-  Unauthenticated: 'Unauthenticated',
-};
+// const AuthState = {
+//   Authenticated: 'Authenticated',
+//   Unauthenticated: 'Unauthenticated',
+// };
 
 export default function App() {
   const [authState, setAuthState] = useState(() => {
@@ -50,7 +50,7 @@ export default function App() {
                     <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
                   </li>
                   <li className="nav-item dropdown">
-                    {(
+                    {authState === AuthState.Authenticated &&(
                       <NavLink className="nav-link dropdown-toggle" to="/gamemode" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Play
                       </NavLink>
@@ -71,7 +71,7 @@ export default function App() {
                     </ul>
                   </li>
                   <li className="nav-item">
-                    {(
+                    {authState === AuthState.Authenticated &&(
                       <NavLink className="nav-link" to="/scores">Scores</NavLink>
                     )}
                   </li>
