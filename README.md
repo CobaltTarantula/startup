@@ -49,14 +49,14 @@ Have you ever wished you knew another language? Do you sometimes wish to hide yo
 - [x]  Application images - my image is centered on screen above the table on the key page
 ### React
 For this deliverable I used JavaScript and React so that the application completely works for a single user. I also added placeholders for future technology.
-- [ ] Bundled and transpiled
-- [ ] Components - Login, voting list, vote are all components with mocks for login, WebSocket.
-  - [ ] login - When you press enter or the login button it takes you to the gamemode page.
-  - [ ] database - Displayed the scores. Currently this is stored and retrieved from local storage, but it will be replaced with the database data later.
-  - [ ] WebSocket - I used the setInterval function to periodically increase a random vote count. This will be replaced with WebSocket messages later.
-  - [ ] application logic - The highlight and ranking number change based up the user's selections.
-- [ ] Router - Routing between login and voting components.
-- [ ] Hooks - Vue uses class properties instead of UseState to track changes in vote state.
+- [x] Bundled and transpiled
+- [x] Components - Login, gamemode, key, scores are all components with mocks for login, WebSocket.
+  - [x] login - When you press enter or the login button it takes you to the gamemode page.
+  - [x] database - Displayed the scores. Currently this is stored and retrieved from local storage, but it will be replaced with the database data later.
+  - [x] WebSocket - I used the setQuote and setQuoteAuthor function to stand in for a random quote generator. This will be replaced with WebSocket messages later.
+  - [x] application logic - textbox allows for typing, random quotes to be generated later, score calculation to be applied later
+- [x] Router - Routing between login and game components.
+- [x] Hooks - useEffect makes some pages only available based on authentication.
 ### Service
 ### DB/Login
 ### WebSocket
