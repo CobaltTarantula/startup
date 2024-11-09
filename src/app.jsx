@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './app.css';
@@ -19,8 +19,18 @@ const AuthState = {
 };
 
 export default function App() {
-  const [authState, setAuthState] = useState(AuthState.Unauthenticated);
-  const [userName, setUserName] = useState('');
+  const [authState, setAuthState] = useState(() => {
+    return localStorage.getItem('authState') || AuthState.Unauthenticated;
+  });
+  const [userName, setUserName] = useState(() => localStorage.getItem('userName') || '');
+  useEffect(() => {
+    localStorage.setItem('authState', authState);
+    if (authState === AuthState.Authenticated) {
+      localStorage.setItem('userName', userName);
+    } else {
+      localStorage.removeItem('userName');
+    }
+  }, [authState, userName]);
   return (
     <BrowserRouter>
       <div className='body bg-dark text-light'>
