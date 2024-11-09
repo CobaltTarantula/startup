@@ -50,28 +50,28 @@ export default function App() {
                     <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
                   </li>
                   <li className="nav-item dropdown">
-                    {authState === AuthState.Authenticated && (
+                    {(
                       <NavLink className="nav-link dropdown-toggle" to="/gamemode" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Play
                       </NavLink>
                     )}
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      {authState === AuthState.Authenticated && (
+                      { (
                         <li><NavLink className="dropdown-item" to="/english-morse">English to Morse</NavLink></li>
                       )}
-                      {authState === AuthState.Authenticated && (  
+                      {(  
                         <li><NavLink className="dropdown-item" to="/morse-english">Morse to English</NavLink></li>
                       )}
-                      {authState === AuthState.Authenticated && (  
+                      {(  
                         <li><hr className="dropdown-divider"></hr></li>
                       )}
-                      {authState === AuthState.Authenticated && (  
+                      {(  
                         <li><NavLink className="dropdown-item" to="/game_over">Game Over</NavLink></li>
                       )}
                     </ul>
                   </li>
                   <li className="nav-item">
-                    {authState === AuthState.Authenticated && (
+                    {(
                       <NavLink className="nav-link" to="/scores">Scores</NavLink>
                     )}
                   </li>
