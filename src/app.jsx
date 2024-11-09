@@ -31,6 +31,9 @@ export default function App() {
       localStorage.removeItem('userName');
     }
   }, [authState, userName]);
+  useEffect(() => {
+    console.log('Auth state changed:', authState);
+  }, [authState]);
   return (
     <BrowserRouter>
       <div className='body bg-dark text-light'>
