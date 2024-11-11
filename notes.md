@@ -680,3 +680,143 @@ app.listen(port, function () {
 - **Express:** node package for doing middleware
 - cookies exist
 - index.js endpoints in simon-React
+
+# 11/11/24 Development and production environments
+- **development environment:** my comp
+   - where to experiment
+- **production environment:** aws server
+   - don't shell in and experiment here you fool
+- **CI:** continous integration, method of deployment
+## Automating your deployment
+- The advantage of using an automated deployment process is that it is reproducible
+- ```./deployService.sh -k ~/prod.pem -h yourdomain.click -s simon```
+   - The -k parameter provides the credential file necessary to access your production environment.
+   - The -h parameter is the domain name of your production environment.
+   - The -s parameter represents the name of the application you are deploying (either simon or startup).
+- Parts:
+   - The first part of the script simply parses the command line parameters so that we can pass in the production environment's security key (or PEM key), the hostname of your domain, and the name of the service you are deploying.
+```
+while getopts k:h:s: flag
+do
+    case "${flag}" in
+        k) key=${OPTARG};;
+        h) hostname=${OPTARG};;
+        s) service=${OPTARG};;
+    esac
+done
+
+if [[ -z "$key" || -z "$hostname" || -z "$service" ]]; then
+    printf "\nMissing required parameter.\n"
+    printf "  syntax: deployService.sh -k <pem key file> -h <hostname> -s <service>\n\n"
+    exit 1
+fi
+
+printf "\n----> Deploying $service to $hostname with $key\n"
+```
+   - Next the script copies all of the applicable source files into a distribution directory (dist) in preparation for copying that directory to your production server.
+```
+# Step 1
+printf "\n----> Build the distribution package\n"
+rm -rf dist
+mkdir dist
+cp -r application dist
+cp *.js dist
+cp package* dist
+```
+   - The target directory on your production environment is deleted so that the new one can replace it. This is done by executing commands remotely using the secure shell program (ssh).
+```
+# Step 2
+printf "\n----> Clearing out previous distribution on the target\n"
+ssh -i $key ubuntu@$hostname << ENDSSH
+rm -rf services/${service}
+mkdir -p services/${service}
+ENDSSH
+```
+   - The distribution directory is then copied to the production environment using the secure copy program (scp).
+```
+# Step 3
+printf "\n----> Copy the distribution package to the target\n"
+scp -r -i $key dist/* ubuntu@$hostname:services/$service
+```
+   -  We then use ssh again to execute some commands on the production environment. This installs the node packages with npm install and restarts the service daemon (PM2) that runs our web application in the production environment.
+```
+# Step 4
+printf "\n----> Deploy the service on the target\n"
+ssh -i $key ubuntu@$hostname << ENDSSH
+cd services/${service}
+npm install
+pm2 restart ${service}
+ENDSSH
+```
+   - Finally we clean up our development environment by deleting the distribution package.
+```
+# Step 5
+printf "\n----> Removing local copy of the distribution package\n"
+rm -rf dist
+```
+# Uploading Files
+- frontend + backend -> epic
+## Backend
+- storage support is in the backend
+- ```npm install multer```
+```
+const express = require('express');
+const multer = require('multer');
+
+const app = express();
+
+app.use(express.static('public'));
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: 'uploads/',
+    filename: (req, file, cb) => {
+      const filetype = file.originalname.split('.').pop();
+      const id = Math.round(Math.random() * 1e9);
+      const filename = `${id}.${filetype}`;
+      cb(null, filename);
+    },
+  }),
+  limits: { fileSize: 64000 },
+});
+
+app.post('/upload', upload.single('file'), (req, res) => {
+  if (req.file) {
+    res.send({
+      message: 'Uploaded succeeded',
+      file: req.file.filename,
+    });
+  } else {
+    res.status(400).send({ message: 'Upload failed' });
+  }
+});
+
+app.get('/file/:filename', (req, res) => {
+  res.sendFile(__dirname + `/uploads/${req.params.filename}`);
+});
+
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    res.status(413).send({ message: err.message });
+  } else {
+    res.status(500).send({ message: err.message });
+  }
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+```
+# Storage Service
+- don't store files directly in server
+- AWS S3
+   1. It has unlimited capacity
+   2. You only pay for the storage that you use
+   3. It is optimized for global access
+   4. It keeps multiple redundant copies of every file
+   5. You can version the files
+   6. It is performant
+   7. It supports metadata tags
+   8. You can make your files publicly available directly from S3
+   9. You can keep your files private and only accessible to your application
+- do not include your credentials in your code
