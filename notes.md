@@ -820,3 +820,319 @@ app.listen(3000, () => {
    8. You can make your files publicly available directly from S3
    9. You can keep your files private and only accessible to your application
 - do not include your credentials in your code
+
+# 11/12/24 Authorization Services
+- store authentication information on a user's device using a **cookie** or other object
+- **authorization:** depending on roles, has access to certain functions, page stuff
+- service providers and packages help simplify the complexity of it
+# Account creation and login
+- **getMe:** endpoint to get info on current user
+## Create authentication endpoint
+This takes an email and password and returns a cookie containing the authentication token and user ID. If the email already exists it returns a 409 (conflict) status code.
+```
+POST /auth/create HTTP/2
+Content-Type: application/json
+
+{
+  "email":"marta@id.com",
+  "password":"toomanysecrets"
+}
+HTTP/2 200 OK
+Content-Type: application/json
+Set-Cookie: auth=tokenHere
+
+{
+  "id":"337"
+}
+```
+## Login authentication endpoint
+This takes an email and password and returns a cookie containing the authentication token and user ID. If the email does not exist or the password is bad it returns a 401 (unauthorized) status code.
+```
+POST /auth/login HTTP/2
+Content-Type: application/json
+
+{
+  "email":"marta@id.com",
+  "password":"toomanysecrets"
+}
+HTTP/2 200 OK
+Content-Type: application/json
+Set-Cookie: auth=tokenHere
+
+{
+  "id":"337"
+}
+```
+## GetMe endpoint
+This uses the authentication token stored in the cookie to look up and return information about the authenticated user. If the token or user do not exist it returns a 401 (unauthorized) status code.
+```
+GET /user/me HTTP/2
+Cookie: auth=tokenHere
+HTTP/2 200 OK
+Content-Type: application/json
+
+{
+  "email":"marta@id.com"
+}
+```
+## Web service
+With our service endpoints designed, we can now build our web service using Express.
+```
+const express = require('express');
+const app = express();
+
+app.post('/auth/create', async (req, res) => {
+  res.send({ id: 'user@id.com' });
+});
+
+app.post('/auth/login', async (req, res) => {
+  res.send({ id: 'user@id.com' });
+});
+
+const port = 8080;
+app.listen(port, function () {
+  console.log(`Listening on port ${port}`);
+});
+```
+- Finishing up
+1. Create a directory called authTest that we will work in.
+2. Save the above content to a file named main.js. This is our starting web service.
+3. Run npm init -y to initialize the project to work with node.js.
+4. Run npm install express cookie-parser mongodb uuid bcrypt to install all of the packages we are going to use.
+5. Run node main.js or press F5 in VS Code to start up the web service
+6. You can now open a console window and use curl to try out one of the endpoints.
+```
+curl -X POST localhost:8080/auth/create
+{"id":"user@id.com"}
+```
+## Handling requests
+The first step is to read the credentials from the body of the HTTP request. Since the body is designed to contain JSON we need to tell Express that it should parse HTTP requests, with a content type of application/json, automatically into a JavaScript object. We do this by using the express.json middleware. We can then read the email and password directly out of the req.body object. We can test that this is working by temporarily including them in the response.
+```
+app.use(express.json());
+
+app.post('/auth/create', (req, res) => {
+  res.send({
+    id: 'user@id.com',
+    email: req.body.email,
+    password: req.body.password,
+  });
+});
+```
+```curl -X POST localhost:8080/auth/create -H 'Content-Type:application/json' -d '{"email":"marta@id.com", "password":"toomanysecrets"}'```
+```{"id":"user@id.com","email":"marta@id.com","password":"toomanysecrets"}```
+Now that we have proven that we can parse the request bodies correctly, we can change the code to add a check to see if we already have a user with that email address. If we do, then we immediately return a 409 (conflict) status code. Otherwise we create a new user and return the user ID.
+```
+app.post('/auth/create', async (req, res) => {
+  if (await getUser(req.body.email)) {
+    res.status(409).send({ msg: 'Existing user' });
+  } else {
+    const user = await createUser(req.body.email, req.body.password);
+    res.send({
+      id: user._id,
+    });
+  }
+});
+```
+## Using the database
+Code set up to use the database:
+```
+const { MongoClient } = require('mongodb');
+
+const userName = 'holowaychuk';
+const password = 'express';
+const hostname = 'mongodb.com';
+
+const url = `mongodb+srv://${userName}:${password}@${hostname}`;
+
+const client = new MongoClient(url);
+```
+getUser & createUser funcs:
+```
+function getUser(email) {
+  return collection.findOne({ email: email });
+}
+
+async function createUser(email, password) {
+  const user = {
+    email: email,
+    password: password,
+    token: 'xxx',
+  };
+  return collection.insertOne(user);
+}
+```
+## Generating authentication tokens
+- **UUID:** pacakge, Universally Unique Identifier; creates unique, hard-to-guess id;
+```
+const uuid = require('uuid');
+
+token: uuid.v4();
+```
+## Securing Passwords
+- use **bcrypt** package creates a very secure one-way hash of the password
+```
+const bcrypt = require('bcrypt');
+
+async function createUser(email, password) {
+  // Hash the password before we insert it into the database
+  const passwordHash = await bcrypt.hash(password, 10);
+
+  const user = {
+    email: email,
+    password: passwordHash,
+    token: uuid.v4(),
+  };
+  await collection.insertOne(user);
+
+  return user;
+}
+```
+## Passing authentication tokens
+- gotta use the **cookie parser** package
+- **httpOnly** tells the browser to not allow JavaScript running on the browser to read the cookie.
+- **secure** requires HTTPS to be used when sending the cookie back to the server.
+- **sameSite** will only return the cookie to the domain that generated it.
+```
+const cookieParser = require('cookie-parser');
+
+// Use the cookie parser middleware
+app.use(cookieParser());
+
+apiRouter.post('/auth/create', async (req, res) => {
+  if (await DB.getUser(req.body.email)) {
+    res.status(409).send({ msg: 'Existing user' });
+  } else {
+    const user = await DB.createUser(req.body.email, req.body.password);
+
+    // Set the cookie
+    setAuthCookie(res, user.token);
+
+    res.send({
+      id: user._id,
+    });
+  }
+});
+
+function setAuthCookie(res, authToken) {
+  res.cookie('token', authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
+```
+## Login endpoint
+The login authorization endpoint needs to get the hashed password from the database, compare it to the provided password using bcrypt.compare, and if successful set the authentication token in the cookie. If the password does not match, or there is no user with the given email, the endpoint returns status 401 (unauthorized).
+```
+app.post('/auth/login', async (req, res) => {
+  const user = await getUser(req.body.email);
+  if (user) {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      setAuthCookie(res, user.token);
+      res.send({ id: user._id });
+      return;
+    }
+  }
+  res.status(401).send({ msg: 'Unauthorized' });
+});
+```
+## GetMe endpoint
+```
+app.get('/user/me', async (req, res) => {
+  authToken = req.cookies['token'];
+  const user = await collection.findOne({ token: authToken });
+  if (user) {
+    res.send({ email: user.email });
+    return;
+  }
+  res.status(401).send({ msg: 'Unauthorized' });
+});
+```
+## Final code
+```
+const { MongoClient } = require('mongodb');
+const uuid = require('uuid');
+const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
+const express = require('express');
+const app = express();
+
+const userName = 'holowaychuk';
+const password = 'express';
+const hostname = 'mongodb.com';
+
+const url = `mongodb+srv://${userName}:${password}@${hostname}`;
+const client = new MongoClient(url);
+const collection = client.db('authTest').collection('user');
+
+app.use(cookieParser());
+app.use(express.json());
+
+// createAuthorization from the given credentials
+app.post('/auth/create', async (req, res) => {
+  if (await getUser(req.body.email)) {
+    res.status(409).send({ msg: 'Existing user' });
+  } else {
+    const user = await createUser(req.body.email, req.body.password);
+    setAuthCookie(res, user.token);
+    res.send({
+      id: user._id,
+    });
+  }
+});
+
+// loginAuthorization from the given credentials
+app.post('/auth/login', async (req, res) => {
+  const user = await getUser(req.body.email);
+  if (user) {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      setAuthCookie(res, user.token);
+      res.send({ id: user._id });
+      return;
+    }
+  }
+  res.status(401).send({ msg: 'Unauthorized' });
+});
+
+// getMe for the currently authenticated user
+app.get('/user/me', async (req, res) => {
+  authToken = req.cookies['token'];
+  const user = await collection.findOne({ token: authToken });
+  if (user) {
+    res.send({ email: user.email });
+    return;
+  }
+  res.status(401).send({ msg: 'Unauthorized' });
+});
+
+function getUser(email) {
+  return collection.findOne({ email: email });
+}
+
+async function createUser(email, password) {
+  const passwordHash = await bcrypt.hash(password, 10);
+  const user = {
+    email: email,
+    password: passwordHash,
+    token: uuid.v4(),
+  };
+  await collection.insertOne(user);
+
+  return user;
+}
+
+function setAuthCookie(res, authToken) {
+  res.cookie('token', authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
+
+const port = 8080;
+app.listen(port, function () {
+  console.log(`Listening on port ${port}`);
+});
+```
+## Curl
+- can use curl to experiment
