@@ -1136,3 +1136,10 @@ app.listen(port, function () {
 ```
 ## Curl
 - can use curl to experiment
+
+# Web Services: Endpoint Design, Debugging Services
+- **PM2:** will restart service to load things up so daemons don't go wacky
+   - runs node in a way so that it doesn't dissappear into the vast void of the intertwebs
+- gonna make index.js in service folder with express stuff
+   - gonna handle the backend services etc...
+- vite.config.js reroutes vite to the correct port (3000)
