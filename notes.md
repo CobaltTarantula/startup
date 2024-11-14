@@ -1142,4 +1142,16 @@ app.listen(port, function () {
    - runs node in a way so that it doesn't dissappear into the vast void of the intertwebs
 - gonna make index.js in service folder with express stuff
    - gonna handle the backend services etc...
-- vite.config.js reroutes vite to the correct port (3000)
+- vite.config.js reroutes vite to the correct port (3000 for Simon, 4000 for Startup)
+
+# 11/14/24 Web Services: Storage, Authentication
+- basic steps to adding service to React project:
+   - call backend (index.js big express stack with all endpoints) with fetch in frontend
+- mongo db dude
+   - gotta make an account and security username and password
+- database shouldn't store the actual password in plain text
+- hash algorithm, salt values, encrypt passwords my dudes
+- gotta use endpoints for authentication
+   - create, login 
+- steal from simon my brotha
+- 
