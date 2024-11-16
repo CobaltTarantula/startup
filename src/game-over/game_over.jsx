@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export function Game_Over() {
   return (
@@ -22,9 +23,7 @@ export function Game_Over() {
       <br />
 
       <div className = "h-center">
-        <button type="button" className="btn btn-dark">Play again</button>
-        <br />
-        <button type="button" className="btn btn-outline-primary">Menu</button>
+        <Link to="/play" className="btn btn-outline-primary">Menu</Link>
       </div>
 
       <br />

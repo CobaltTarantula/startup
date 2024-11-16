@@ -51,7 +51,7 @@ export function Morse_English(props) {
         <br />
         <input class="form-control form-control-lg" type="text" placeholder="English" aria-label=".form-control-lg example"></input>
         <br />
-        <Link to="/game-over/game_over" className="btn btn-primary btn-sm">Submit</Link>
+        <Link to="/game_over" className="btn btn-primary btn-sm">Submit</Link>
       </div>
     </main>
   );
