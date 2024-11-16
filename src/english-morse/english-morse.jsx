@@ -7,11 +7,17 @@ export function English_Morse(props) {
   const [time, setTime] = React.useState(0); // Timer state in seconds
 
   React.useEffect(() => {
-    setQuote('Show me the code');
-    setQuoteAuthor('Linus Torvalds');
     const timerInterval = setInterval(() => {
       setTime((prevTime) => prevTime + 1);
     }, 1000);
+
+    fetch('https://quote.cs260.click')
+      .then((response) => response.json())
+      .then((data) => {
+        setQuote(data.quote);
+        setQuoteAuthor(data.author);
+      })
+      .catch();
 
     // Cleanup interval on unmount
     return () => clearInterval(timerInterval);
