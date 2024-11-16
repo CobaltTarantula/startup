@@ -680,3 +680,478 @@ app.listen(port, function () {
 - **Express:** node package for doing middleware
 - cookies exist
 - index.js endpoints in simon-React
+
+# 11/11/24 Development and production environments
+- **development environment:** my comp
+   - where to experiment
+- **production environment:** aws server
+   - don't shell in and experiment here you fool
+- **CI:** continous integration, method of deployment
+## Automating your deployment
+- The advantage of using an automated deployment process is that it is reproducible
+- ```./deployService.sh -k ~/prod.pem -h yourdomain.click -s simon```
+   - The -k parameter provides the credential file necessary to access your production environment.
+   - The -h parameter is the domain name of your production environment.
+   - The -s parameter represents the name of the application you are deploying (either simon or startup).
+- Parts:
+   - The first part of the script simply parses the command line parameters so that we can pass in the production environment's security key (or PEM key), the hostname of your domain, and the name of the service you are deploying.
+```
+while getopts k:h:s: flag
+do
+    case "${flag}" in
+        k) key=${OPTARG};;
+        h) hostname=${OPTARG};;
+        s) service=${OPTARG};;
+    esac
+done
+
+if [[ -z "$key" || -z "$hostname" || -z "$service" ]]; then
+    printf "\nMissing required parameter.\n"
+    printf "  syntax: deployService.sh -k <pem key file> -h <hostname> -s <service>\n\n"
+    exit 1
+fi
+
+printf "\n----> Deploying $service to $hostname with $key\n"
+```
+   - Next the script copies all of the applicable source files into a distribution directory (dist) in preparation for copying that directory to your production server.
+```
+# Step 1
+printf "\n----> Build the distribution package\n"
+rm -rf dist
+mkdir dist
+cp -r application dist
+cp *.js dist
+cp package* dist
+```
+   - The target directory on your production environment is deleted so that the new one can replace it. This is done by executing commands remotely using the secure shell program (ssh).
+```
+# Step 2
+printf "\n----> Clearing out previous distribution on the target\n"
+ssh -i $key ubuntu@$hostname << ENDSSH
+rm -rf services/${service}
+mkdir -p services/${service}
+ENDSSH
+```
+   - The distribution directory is then copied to the production environment using the secure copy program (scp).
+```
+# Step 3
+printf "\n----> Copy the distribution package to the target\n"
+scp -r -i $key dist/* ubuntu@$hostname:services/$service
+```
+   -  We then use ssh again to execute some commands on the production environment. This installs the node packages with npm install and restarts the service daemon (PM2) that runs our web application in the production environment.
+```
+# Step 4
+printf "\n----> Deploy the service on the target\n"
+ssh -i $key ubuntu@$hostname << ENDSSH
+cd services/${service}
+npm install
+pm2 restart ${service}
+ENDSSH
+```
+   - Finally we clean up our development environment by deleting the distribution package.
+```
+# Step 5
+printf "\n----> Removing local copy of the distribution package\n"
+rm -rf dist
+```
+# Uploading Files
+- frontend + backend -> epic
+## Backend
+- storage support is in the backend
+- ```npm install multer```
+```
+const express = require('express');
+const multer = require('multer');
+
+const app = express();
+
+app.use(express.static('public'));
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: 'uploads/',
+    filename: (req, file, cb) => {
+      const filetype = file.originalname.split('.').pop();
+      const id = Math.round(Math.random() * 1e9);
+      const filename = `${id}.${filetype}`;
+      cb(null, filename);
+    },
+  }),
+  limits: { fileSize: 64000 },
+});
+
+app.post('/upload', upload.single('file'), (req, res) => {
+  if (req.file) {
+    res.send({
+      message: 'Uploaded succeeded',
+      file: req.file.filename,
+    });
+  } else {
+    res.status(400).send({ message: 'Upload failed' });
+  }
+});
+
+app.get('/file/:filename', (req, res) => {
+  res.sendFile(__dirname + `/uploads/${req.params.filename}`);
+});
+
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    res.status(413).send({ message: err.message });
+  } else {
+    res.status(500).send({ message: err.message });
+  }
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+```
+# Storage Service
+- don't store files directly in server
+- AWS S3
+   1. It has unlimited capacity
+   2. You only pay for the storage that you use
+   3. It is optimized for global access
+   4. It keeps multiple redundant copies of every file
+   5. You can version the files
+   6. It is performant
+   7. It supports metadata tags
+   8. You can make your files publicly available directly from S3
+   9. You can keep your files private and only accessible to your application
+- do not include your credentials in your code
+
+# 11/12/24 Authorization Services
+- store authentication information on a user's device using a **cookie** or other object
+- **authorization:** depending on roles, has access to certain functions, page stuff
+- service providers and packages help simplify the complexity of it
+# Account creation and login
+- **getMe:** endpoint to get info on current user
+## Create authentication endpoint
+This takes an email and password and returns a cookie containing the authentication token and user ID. If the email already exists it returns a 409 (conflict) status code.
+```
+POST /auth/create HTTP/2
+Content-Type: application/json
+
+{
+  "email":"marta@id.com",
+  "password":"toomanysecrets"
+}
+HTTP/2 200 OK
+Content-Type: application/json
+Set-Cookie: auth=tokenHere
+
+{
+  "id":"337"
+}
+```
+## Login authentication endpoint
+This takes an email and password and returns a cookie containing the authentication token and user ID. If the email does not exist or the password is bad it returns a 401 (unauthorized) status code.
+```
+POST /auth/login HTTP/2
+Content-Type: application/json
+
+{
+  "email":"marta@id.com",
+  "password":"toomanysecrets"
+}
+HTTP/2 200 OK
+Content-Type: application/json
+Set-Cookie: auth=tokenHere
+
+{
+  "id":"337"
+}
+```
+## GetMe endpoint
+This uses the authentication token stored in the cookie to look up and return information about the authenticated user. If the token or user do not exist it returns a 401 (unauthorized) status code.
+```
+GET /user/me HTTP/2
+Cookie: auth=tokenHere
+HTTP/2 200 OK
+Content-Type: application/json
+
+{
+  "email":"marta@id.com"
+}
+```
+## Web service
+With our service endpoints designed, we can now build our web service using Express.
+```
+const express = require('express');
+const app = express();
+
+app.post('/auth/create', async (req, res) => {
+  res.send({ id: 'user@id.com' });
+});
+
+app.post('/auth/login', async (req, res) => {
+  res.send({ id: 'user@id.com' });
+});
+
+const port = 8080;
+app.listen(port, function () {
+  console.log(`Listening on port ${port}`);
+});
+```
+- Finishing up
+1. Create a directory called authTest that we will work in.
+2. Save the above content to a file named main.js. This is our starting web service.
+3. Run npm init -y to initialize the project to work with node.js.
+4. Run npm install express cookie-parser mongodb uuid bcrypt to install all of the packages we are going to use.
+5. Run node main.js or press F5 in VS Code to start up the web service
+6. You can now open a console window and use curl to try out one of the endpoints.
+```
+curl -X POST localhost:8080/auth/create
+{"id":"user@id.com"}
+```
+## Handling requests
+The first step is to read the credentials from the body of the HTTP request. Since the body is designed to contain JSON we need to tell Express that it should parse HTTP requests, with a content type of application/json, automatically into a JavaScript object. We do this by using the express.json middleware. We can then read the email and password directly out of the req.body object. We can test that this is working by temporarily including them in the response.
+```
+app.use(express.json());
+
+app.post('/auth/create', (req, res) => {
+  res.send({
+    id: 'user@id.com',
+    email: req.body.email,
+    password: req.body.password,
+  });
+});
+```
+```curl -X POST localhost:8080/auth/create -H 'Content-Type:application/json' -d '{"email":"marta@id.com", "password":"toomanysecrets"}'```
+```{"id":"user@id.com","email":"marta@id.com","password":"toomanysecrets"}```
+Now that we have proven that we can parse the request bodies correctly, we can change the code to add a check to see if we already have a user with that email address. If we do, then we immediately return a 409 (conflict) status code. Otherwise we create a new user and return the user ID.
+```
+app.post('/auth/create', async (req, res) => {
+  if (await getUser(req.body.email)) {
+    res.status(409).send({ msg: 'Existing user' });
+  } else {
+    const user = await createUser(req.body.email, req.body.password);
+    res.send({
+      id: user._id,
+    });
+  }
+});
+```
+## Using the database
+Code set up to use the database:
+```
+const { MongoClient } = require('mongodb');
+
+const userName = 'holowaychuk';
+const password = 'express';
+const hostname = 'mongodb.com';
+
+const url = `mongodb+srv://${userName}:${password}@${hostname}`;
+
+const client = new MongoClient(url);
+```
+getUser & createUser funcs:
+```
+function getUser(email) {
+  return collection.findOne({ email: email });
+}
+
+async function createUser(email, password) {
+  const user = {
+    email: email,
+    password: password,
+    token: 'xxx',
+  };
+  return collection.insertOne(user);
+}
+```
+## Generating authentication tokens
+- **UUID:** pacakge, Universally Unique Identifier; creates unique, hard-to-guess id;
+```
+const uuid = require('uuid');
+
+token: uuid.v4();
+```
+## Securing Passwords
+- use **bcrypt** package creates a very secure one-way hash of the password
+```
+const bcrypt = require('bcrypt');
+
+async function createUser(email, password) {
+  // Hash the password before we insert it into the database
+  const passwordHash = await bcrypt.hash(password, 10);
+
+  const user = {
+    email: email,
+    password: passwordHash,
+    token: uuid.v4(),
+  };
+  await collection.insertOne(user);
+
+  return user;
+}
+```
+## Passing authentication tokens
+- gotta use the **cookie parser** package
+- **httpOnly** tells the browser to not allow JavaScript running on the browser to read the cookie.
+- **secure** requires HTTPS to be used when sending the cookie back to the server.
+- **sameSite** will only return the cookie to the domain that generated it.
+```
+const cookieParser = require('cookie-parser');
+
+// Use the cookie parser middleware
+app.use(cookieParser());
+
+apiRouter.post('/auth/create', async (req, res) => {
+  if (await DB.getUser(req.body.email)) {
+    res.status(409).send({ msg: 'Existing user' });
+  } else {
+    const user = await DB.createUser(req.body.email, req.body.password);
+
+    // Set the cookie
+    setAuthCookie(res, user.token);
+
+    res.send({
+      id: user._id,
+    });
+  }
+});
+
+function setAuthCookie(res, authToken) {
+  res.cookie('token', authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
+```
+## Login endpoint
+The login authorization endpoint needs to get the hashed password from the database, compare it to the provided password using bcrypt.compare, and if successful set the authentication token in the cookie. If the password does not match, or there is no user with the given email, the endpoint returns status 401 (unauthorized).
+```
+app.post('/auth/login', async (req, res) => {
+  const user = await getUser(req.body.email);
+  if (user) {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      setAuthCookie(res, user.token);
+      res.send({ id: user._id });
+      return;
+    }
+  }
+  res.status(401).send({ msg: 'Unauthorized' });
+});
+```
+## GetMe endpoint
+```
+app.get('/user/me', async (req, res) => {
+  authToken = req.cookies['token'];
+  const user = await collection.findOne({ token: authToken });
+  if (user) {
+    res.send({ email: user.email });
+    return;
+  }
+  res.status(401).send({ msg: 'Unauthorized' });
+});
+```
+## Final code
+```
+const { MongoClient } = require('mongodb');
+const uuid = require('uuid');
+const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
+const express = require('express');
+const app = express();
+
+const userName = 'holowaychuk';
+const password = 'express';
+const hostname = 'mongodb.com';
+
+const url = `mongodb+srv://${userName}:${password}@${hostname}`;
+const client = new MongoClient(url);
+const collection = client.db('authTest').collection('user');
+
+app.use(cookieParser());
+app.use(express.json());
+
+// createAuthorization from the given credentials
+app.post('/auth/create', async (req, res) => {
+  if (await getUser(req.body.email)) {
+    res.status(409).send({ msg: 'Existing user' });
+  } else {
+    const user = await createUser(req.body.email, req.body.password);
+    setAuthCookie(res, user.token);
+    res.send({
+      id: user._id,
+    });
+  }
+});
+
+// loginAuthorization from the given credentials
+app.post('/auth/login', async (req, res) => {
+  const user = await getUser(req.body.email);
+  if (user) {
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      setAuthCookie(res, user.token);
+      res.send({ id: user._id });
+      return;
+    }
+  }
+  res.status(401).send({ msg: 'Unauthorized' });
+});
+
+// getMe for the currently authenticated user
+app.get('/user/me', async (req, res) => {
+  authToken = req.cookies['token'];
+  const user = await collection.findOne({ token: authToken });
+  if (user) {
+    res.send({ email: user.email });
+    return;
+  }
+  res.status(401).send({ msg: 'Unauthorized' });
+});
+
+function getUser(email) {
+  return collection.findOne({ email: email });
+}
+
+async function createUser(email, password) {
+  const passwordHash = await bcrypt.hash(password, 10);
+  const user = {
+    email: email,
+    password: passwordHash,
+    token: uuid.v4(),
+  };
+  await collection.insertOne(user);
+
+  return user;
+}
+
+function setAuthCookie(res, authToken) {
+  res.cookie('token', authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
+
+const port = 8080;
+app.listen(port, function () {
+  console.log(`Listening on port ${port}`);
+});
+```
+## Curl
+- can use curl to experiment
+
+# Web Services: Endpoint Design, Debugging Services
+- **PM2:** will restart service to load things up so daemons don't go wacky
+   - runs node in a way so that it doesn't dissappear into the vast void of the intertwebs
+- gonna make index.js in service folder with express stuff
+   - gonna handle the backend services etc...
+- vite.config.js reroutes vite to the correct port (3000 for Simon, 4000 for Startup)
+
+# 11/14/24 Web Services: Storage, Authentication
+- basic steps to adding service to React project:
+   - call backend (index.js big express stack with all endpoints) with fetch in frontend
+- mongo db dude
+   - gotta make an account and security username and password
+- database shouldn't store the actual password in plain text
+- hash algorithm, salt values, encrypt passwords my dudes
+- gotta use endpoints for authentication
+   - create, login 
+- steal from simon my brotha
+- 
