@@ -13,11 +13,6 @@ import { English_Morse } from './english-morse/english-morse';
 import { Game_Over } from './game-over/game_over';
 import { AuthState } from './login/authState'
 
-// const AuthState = {
-//   Authenticated: 'Authenticated',
-//   Unauthenticated: 'Unauthenticated',
-// };
-
 export default function App() {
   const [authState, setAuthState] = useState(() => {
     return localStorage.getItem('authState') || AuthState.Unauthenticated;
