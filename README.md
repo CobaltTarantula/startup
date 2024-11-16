@@ -58,5 +58,10 @@ For this deliverable I used JavaScript and React so that the application complet
 - [x] Router - Routing between login and game components.
 - [x] Hooks - useEffect makes some pages only available based on authentication.
 ### Service
+- [ ] Node.js/Express HTTP service - 
+- [ ] Static middleware for frontend - 
+- [ ] Calls to third party endpoints - 
+- [ ] Backend service endpoints - Placeholders for login that stores the current user on the server. Endpoints for voting.
+- [ ] Frontend calls service endpoints - I did this using the fetch function.
 ### DB/Login
 ### WebSocket
