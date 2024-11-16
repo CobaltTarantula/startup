@@ -76,8 +76,6 @@ export function Morse_English(props) {
 
       <br />
 
-      <p>...</p>
-
       <div className='h-center'>
         <div className='quote-box bg-light text-dark'>
           <p className='quote'>{morseCode}</p>
