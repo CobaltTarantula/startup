@@ -1,7 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 export function Game_Over() {
+  const location = useLocation();
+  const { lettersWritten = '--', timeTaken = '--', score = '--' } = location.state || {};
+
   return (
     <main>
       <div className="h-center">
@@ -9,14 +12,14 @@ export function Game_Over() {
         <br />
         <label for="count"></label>
         You wrote
-        <input type="text" id="letters" value="--" readonly />
+        <input type="text" id="letters" value={lettersWritten} readonly />
         letters in
-        <input type="text" id="seconds" value="--" readonly />
+        <input type="text" id="seconds" value={timeTaken} readonly />
         seconds.
         <br />
         <br />
         Your score is 
-        <input type="text" id="score" value="--" readonly />
+        <input type="text" id="score" value={score} readonly />
         l/s.
       </div>
 

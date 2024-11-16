@@ -1,11 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export function Morse_English(props) {
   const [quote, setQuote] = React.useState('Loading...');
   const [quoteAuthor, setQuoteAuthor] = React.useState('unknown');
   const [time, setTime] = React.useState(0); // Timer state in seconds
   const [morseCode, setMorseCode] = React.useState(''); // State to store the Morse code
+  const [userInput, setUserInput] = React.useState(''); // User's English input
+
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const timerInterval = setInterval(() => {
@@ -49,6 +52,18 @@ export function Morse_English(props) {
       .map((char) => morseMap[char] || '') // Translate each character
       .join(' '); // Join with space between Morse code characters
   };
+
+  // Function to handle form submission
+  const handleSubmit = () => {
+    const lettersWritten = userInput.length; // Count the letters written by the user
+    const timeTaken = time; // Current timer value
+    const score = (lettersWritten / timeTaken).toFixed(2); // Calculate score as letters per second
+
+    // Navigate to the Game Over screen with the calculated values
+    navigate('/game_over', {
+      state: { lettersWritten, timeTaken, score },
+    });
+  };
   
   return (
     <main>      
@@ -75,9 +90,16 @@ export function Morse_English(props) {
       <div className='h-center'>
         <label for="count">Morse code to English:</label>
         <br />
-        <input class="form-control form-control-lg" type="text" placeholder="English" aria-label=".form-control-lg example"></input>
+        <input
+          className="form-control form-control-lg"
+          type="text"
+          placeholder="English"
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)} // Update userInput on change
+          aria-label=".form-control-lg example"
+        />
         <br />
-        <Link to="/game_over" className="btn btn-primary btn-sm">Submit</Link>
+        <button onClick={handleSubmit} className="btn btn-primary btn-sm">Submit</button>
       </div>
     </main>
   );
