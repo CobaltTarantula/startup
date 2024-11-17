@@ -4,7 +4,7 @@ import { useLocation, Link } from 'react-router-dom';
 export function Game_Over() {
   const location = useLocation();
   const { lettersWritten = '--', timeTaken = '--', score = '--' } = location.state || {};
-
+  
   return (
     <main>
       <div className="h-center">

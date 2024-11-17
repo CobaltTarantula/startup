@@ -1,20 +1,13 @@
-async function onPressed(buttonPosition) {
-    if (allowPlayer) {
-      setAllowPlayer(false);
-      await buttons.get(buttonPosition).ref.current.press();
-  
-      if (sequence[playbackPos].position === buttonPosition) {
-        if (playbackPos + 1 === sequence.length) {
-          setPlaybackPos(0);
-          increaseSequence(sequence);
-        } else {
-          setPlaybackPos(playbackPos + 1);
-          setAllowPlayer(true);
-        }
-      } else {
-        saveScore(sequence.length - 1);
-        mistakeSound.play();
-        await buttonDance();
-      }
-    }
-  }
+async function saveScore(score) {
+  const date = new Date().toLocaleDateString();
+  const newScore = { name: userName, score: score, date: date };
+
+  await fetch('/api/score', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(newScore),
+  });
+
+  // Let other players know the game has concluded
+  GameNotifier.broadcastEvent(userName, GameEvent.End, newScore);
+}
