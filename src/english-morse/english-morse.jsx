@@ -64,9 +64,10 @@ export function English_Morse(props) {
       <br />
 
       <div className='h-center'>
-        <label for="count">English to Morse code:</label>
+        English to Morse code:
         <br />
         <input 
+          id="english-morse-input"
           className="form-control form-control-lg" 
           type="text" 
           placeholder="--/---/.-./.../." 

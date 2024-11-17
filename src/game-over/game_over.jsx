@@ -5,21 +5,35 @@ export function Game_Over() {
   const location = useLocation();
   const { lettersWritten = '--', timeTaken = '--', score = '--' } = location.state || {};
   
+  // useEffect(() => {
+  //   // Replace with the appropriate API endpoint and data format
+  //   fetch('/api/scores', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({
+  //       name: 'Anonymous', // Replace with actual user name if available
+  //       score: score,
+  //       date: new Date().toISOString(),
+  //     }),
+  //   }).catch((error) => {
+  //     console.error('Error updating score:', error);
+  //   });
+  // }, [score]);
+
   return (
     <main>
       <div className="h-center">
         <h1>Game Over</h1>
         <br />
-        <label for="count"></label>
         You wrote
-        <input type="text" id="letters" value={lettersWritten} readonly />
+        <input type="text" id="letters" value={lettersWritten} readOnly />
         letters in
-        <input type="text" id="seconds" value={timeTaken} readonly />
+        <input type="text" id="seconds" value={timeTaken} readOnly />
         seconds.
         <br />
         <br />
         Your score is 
-        <input type="text" id="score" value={score} readonly />
+        <input type="text" id="score" value={score} readOnly />
         l/s.
       </div>
 

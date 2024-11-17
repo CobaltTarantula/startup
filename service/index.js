@@ -65,6 +65,7 @@ apiRouter.get('/scores', (_req, res) => {
 
 // SubmitScore
 apiRouter.post('/score', (req, res) => {
+  console.log('New score received:', req.body); // Debugging log
   scores = updateScores(req.body, scores);
   res.send(scores);
 });
