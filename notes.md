@@ -1154,4 +1154,35 @@ app.listen(port, function () {
 - gotta use endpoints for authentication
    - create, login 
 - steal from simon my brotha
-- 
+
+# 11/18/24 UI testing
+- **TDD:** test driven development
+## Automating the browser: Playwright
+- **Selenium:** browser automation tool, flaky and slow
+- **State of JS:** shows stats of various testing frameworks
+- **Playwright:** newcomer in browser automation
+   - It is backed by Microsoft, it integrates really well with VS Code, and it runs as a Node.js process.
+   - It is also considered one of the least flaky of the testing frameworks.
+- Steps on using Playwright:
+   1. npm init playwright@latest
+   2. Go to the extensions tab in VS Code and search for, and install, Playwright Test for VSCode.
+   3. Create test file
+   4. npm run start
+   5. Click play on test
+- **Browserstack:** let's you test out site on various device types
+
+# Endpoint testing
+## Jest
+- To get started with Jest we need a simple web service:
+   - In a console window, create a test directory, install Express, and open up VS Code.
+```
+mkdir testJest
+cd testJest
+npm init -y
+npm install express
+code .
+```
+- more funky stuff
+- -> ```npm run test```
+## Testing endpoints
+- ```npm install supertest```
