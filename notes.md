@@ -1186,3 +1186,12 @@ code .
 - -> ```npm run test```
 ## Testing endpoints
 - ```npm install supertest```
+
+# 11/19/24 Database and Login: Simon
+- in the actual service all the js and all the css are combined into two files total (because of vite)
+- we're gonna use cookies now
+- in index.js gotta require cookie parser now
+- gonna bcrypt ur boy'
+- in secureApiRouter.post gotta ...req.body the score ig
+- database.js
+- gotta debug a wild new way with atlas
