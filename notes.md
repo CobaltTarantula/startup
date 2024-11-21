@@ -1459,3 +1459,4 @@ ws.on('pong', () => {
 Any connection that did not respond will remain in the not alive state and get cleaned up on the next pass.
 
 # Simon WebSocket
+- get'em
