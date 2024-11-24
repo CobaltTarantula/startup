@@ -64,4 +64,10 @@ For this deliverable I used JavaScript and React so that the application complet
 - [x] Backend service endpoints - Placeholders for login that stores the current user on the server. Endpoints for scoring that will be fully functional after login is implemented.
 - [x] Frontend calls service endpoints - I did this using the fetch function.
 ### DB/Login
+-  [x] MongoDB Atlas database created - done!
+-  [x] Stores data in MongoDB - done!
+-  [x] User registration - Creates a new account in the database.
+-  [x] existing user - Stores the votes under the same user if the user already exists.
+-  [x] Use MongoDB to store credentials - Stores both user and their scores.
+-  [x] Restricts functionality - You cannot view gamemodes until you have logged in.
 ### WebSocket
