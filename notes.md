@@ -1461,4 +1461,29 @@ Any connection that did not respond will remain in the not alive state and get c
 # WebSockets
 - we want peers to be able to talk to each other until the connection closes
 - ```npm install ws``` in relevant module
-- 
+
+# 11/27/24 Simon WebSocket
+- ```npm install ws```
+- peerProxy.js
+## Displaying and generating WebSocket messages
+- The public/play.js file contains the functions for connecting, broadcasting, receiving, and displaying events using WebSocket.
+## Configuring Vite to proxy ws requests
+- modify vite.config.js
+```
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3000',
+      '/ws': {
+        target: 'ws://localhost:3000',
+        ws: true,
+      },
+    },
+  },
+});
+```
+- clone
+- credentials
+- deploy
