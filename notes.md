@@ -1212,10 +1212,8 @@ socket.send('I am listening');
 ```
 - **ws:** package used by server to create a WebSocketServer on same port as browser
    - by specifying port -> telling the server to listen for HTTP connections on that port and to automatically upgrade them to a WebSocket connection if the request has a connection: Upgrade header.
-<br/>
-When a connection is detected it calls the server's on connection callback. The server can then send messages with the send function, and register a callback using the on message function to receive messages.
-<br/>
-ex:
+- When a connection is detected it calls the server's on connection callback. The server can then send messages with the send function, and register a callback using the on message function to receive messages.
+- ex:
 ```
 const { WebSocketServer } = require('ws');
 
