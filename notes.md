@@ -1462,6 +1462,7 @@ Any connection that did not respond will remain in the not alive state and get c
 # 11/27/24 Simon WebSocket
 - ```npm install ws```
 - peerProxy.js
+   - lets either server talk to other
 ## Displaying and generating WebSocket messages
 - The public/play.js file contains the functions for connecting, broadcasting, receiving, and displaying events using WebSocket.
 ## Configuring Vite to proxy ws requests
