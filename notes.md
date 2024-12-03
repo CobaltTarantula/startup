@@ -1200,8 +1200,7 @@ code .
 ## Creating a Websocket Conversation
 - JS on a browser -> convo with Websocket API
    - first gotta create a WebSocket object by specifying the port you want to communicate on
-<br/>
-ex:
+- ex:
 ```
 const socket = new WebSocket('ws://localhost:9900');
 
