@@ -1200,8 +1200,7 @@ code .
 ## Creating a Websocket Conversation
 - JS on a browser -> convo with Websocket API
    - first gotta create a WebSocket object by specifying the port you want to communicate on
-<br/>
-ex:
+- ex:
 ```
 const socket = new WebSocket('ws://localhost:9900');
 
@@ -1213,10 +1212,8 @@ socket.send('I am listening');
 ```
 - **ws:** package used by server to create a WebSocketServer on same port as browser
    - by specifying port -> telling the server to listen for HTTP connections on that port and to automatically upgrade them to a WebSocket connection if the request has a connection: Upgrade header.
-<br/>
-When a connection is detected it calls the server's on connection callback. The server can then send messages with the send function, and register a callback using the on message function to receive messages.
-<br/>
-ex:
+- When a connection is detected it calls the server's on connection callback. The server can then send messages with the send function, and register a callback using the on message function to receive messages.
+- ex:
 ```
 const { WebSocketServer } = require('ws');
 
@@ -1461,4 +1458,170 @@ Any connection that did not respond will remain in the not alive state and get c
 # WebSockets
 - we want peers to be able to talk to each other until the connection closes
 - ```npm install ws``` in relevant module
-- 
+
+# 11/27/24 Simon WebSocket
+- ```npm install ws```
+- peerProxy.js
+   - lets either server talk to other
+## Displaying and generating WebSocket messages
+- The public/play.js file contains the functions for connecting, broadcasting, receiving, and displaying events using WebSocket.
+## Configuring Vite to proxy ws requests
+- modify vite.config.js
+```
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  server: {
+    proxy: {
+      '/api': 'http://localhost:3000',
+      '/ws': {
+        target: 'ws://localhost:3000',
+        ws: true,
+      },
+    },
+  },
+});
+```
+- clone
+- credentials
+- deploy
+
+# 12/3/24 Security
+- to see attempts to access server
+   - ssh in
+   - run ```sudo less +G /var/log/auth.log```
+   - see your entry and any other attempts
+ ## Security terminology
+ - **Hacking** - The process of making a system do something it's not supposed to do.
+ - **Exploit** - Code or input that takes advantage of a programming or configuration flaw.
+ - **Attack Vector** - The method that a hacker employs to penetrate and exploit a system.
+ - **Attack Surface** - The exposed parts of a system that an attacker can access. For example, open ports (22, 443, 80), service endpoints, or user accounts.
+ - **Attack Payload** - The actual code, or data, that a hacker delivers to a system in order to exploit it.
+ - **Input sanitization** - "Cleaning" any input of potentially malicious data.
+ - **Black box testing** - Testing an application without knowledge of the internals of the application.
+ - **White box testing** - Testing an application by with knowledge of the source code and internal infrastructure.
+ - **Penetration Testing** - Attempting to gain access to, or exploit, a system in ways that are not anticipated by the developers.
+ - **Mitigation** - The action taken to remove, or reduce, a threat.
+## Motivation for attackers
+- **Disruption** - By overloading a system, encrypting essential data, or deleting critical infrastructure, an attacker can destroy normal business operations. This may be an attempt at extortion, or simply be an attempt to punish a business that that attacker does not agree with.
+- **Data exfiltration** - By privately extracting, or publicly exposing, a system's data, an attacker can embarrass the company, exploit insider information, sell the information to competitors, or leverage the information for additional attacks.
+- **Resource consumption** - By taking control of a company's computing resources an attacker can use it for other purposes such as mining cryptocurrency, gathering customer information, or attacking other systems
+## Common Hacking Techniques
+- **Injection:** When an application interacts with a database on the backend, a programmer will often take user input and concatenate it directly into a search query. This allows a hacker can use a specially crafted query to make the database reveal hidden information or even delete the database.
+- **Cross-Site Scripting (XSS):** A category of attacks where an attacker can make malicious code execute on a different user's browser. If successful, an attacker can turn a website that a user trusts, into one that can steal passwords and hijack a user's account.
+- **Denial of Service:** This includes any attack where the main goal is to render any service inaccessible. This can be done by deleting a database using an SQL injection, by sending unexpected data to a service endpoint that causes the program to crash, or by simply making more requests than a server can handle.
+- **Credential Stuffing:** People have a tendency to reuse passwords or variations of passwords on different websites. If a hacker has a user's credentials from a previous website attack, then there is a good chance that they can successfully use those credentials on a different website. A hacker can also try to brute force attack a system by trying every possible combination of password.
+- **Social engineering** - Appealing to a human's desire to help, in order to gain unauthorized access or information.
+## What can I do about it?
+- **Sanitize input data** - Always assume that any data you receive from outside your system will be used to exploit your system. Consider if the input data can be turned into an executable expression, or can overload computing, bandwidth, or storage resources.
+- **Logging** - It is not possible to think of every way that your system can be exploited, but you can create an immutable log of requests that will expose when a system is being exploited. You can then trigger alerts, and periodically review the logs for unexpected activity.
+- **Traps** - Create what appears to be valuable information and then trigger alarms when the data is accessed.
+- **Educate** - Teach yourself, your users, and everyone you work with, to be security minded. Anyone who has access to your system should understand how to prevent physical, social, and software attacks.
+- **Reduce attack surfaces** - Do not open access anymore than is necessary to properly provide your application. This includes what network ports are open, what account privileges are allowed, where you can access the system from, and what endpoints are available.
+- **Layered security** - Do not assume that one safeguard is enough. Create multiple layers of security that each take different approaches. For example, secure your physical environment, secure your network, secure your server, secure your public network traffic, secure your private network traffic, encrypt your storage, separate your production systems from your development systems, put your payment information in a separate environment from your application environment. Do not allow data from one layer to move to other layers. For example, do not allow an employee to take data out of the production system.
+- **Least required access policy** - Do not give any one user all the credentials necessary to control the entire system. Only give a user what access they need to do the work they are required to do.
+- **Safeguard credentials** - Do not store credentials in accessible locations such as a public GitHub repository or a sticky note taped to a monitor. Automatically rotate credentials in order to limit the impact of an exposure. Only award credentials that are necessary to do a specific task.
+- **Public review** - Do not rely on obscurity to keep your system safe. Assume instead that an attacker knows everything about your system and then make it difficult for anyone to exploit the system. If you can attack your system, then a hacker will be able to also. By soliciting public review and the work of external penetration testers, you will be able to discover and remove potential exploits.\
+
+# OWASP
+- **Open Web Application Security Project (OWASP):** a non-profit research entity that manages the Top Ten list of the most important web application security risks.
+- Understanding, and periodically reviewing, this list will help to keep your web applications secure.
+## A01 Broken Access Control
+- if application doesn't properly enforce authorization rules, then non-admins can do things they shouldn't be able to
+- Mitigations include:
+   - Strict access enforcement at the service level
+   - Clearly defined roles and elevation paths
+## A02 Cryptographic Failures
+- Cryptographic failures occur when sensitive data is accessible either without encryption, with weak encryption protocols, or when cryptographic protections are ignored.
+- Mitigations include:
+   - Use strong encryption for all data. This includes external, internal, in transit, and at rest data.
+   - Updating encryption algorithms as older algorithms become compromised.
+   - Properly using cryptographic safeguards.
+## A03 Injection
+- Injection exploits occur when an attacker is allowed to supply data that is then injected into a context where it violates the expected use of the user input. For example, consider an input field that is only expected to contain a user's password. Instead the attacker supplies a SQL database command in the password input.
+- Mitigations include:
+   - Sanitizing input
+   - Use database prepared statements
+   - Restricting execution rights
+   - Limit output
+## A04 Insecure Design
+- Insecure design broadly refers to architectural flaws that are unique for individual systems, rather than implementation errors. This happens when the application team doesn't focus on security when designing a system, or doesn't continuously reevaluate the application's security.
+- Mitigations include:
+   - Integration testing
+   - Strict access control
+   - Security education
+   - Security design pattern usages
+   - Scenario reviews
+## A05 Security Misconfiguration
+- Security misconfiguration attacks exploit the configuration of an application. Some examples include using default passwords, not updating software, exposing configuration settings, or enabling unsecured remote configuration.
+- Mitigations include:
+   - Configuration reviews
+   - Setting defaults to disable all access
+   - Automated configuration audits
+   - Requiring multiple layers of access for remote configuration
+## A06 Vulnerable and Outdated Components
+- The longer an application has been deployed, the more likely it is that the attack surface, and corresponding exploits, of the application will increase. This is primarily due to the cost of maintaining an application and keeping it up to date in order to mitigate newly discovered exploits.
+- Mitigations include:
+   - Keeping a manifest of your software stack including versions
+   - Reviewing security bulletins
+   - Regularly updating software
+   - Required components to be up to date
+   - Replacing unsupported software
+## A07 Identification and Authentication Failures
+- Identification and authentication failures include any situation where a user's identity can be impersonated or assumed by an attacker. For example, if an attacker can repeatedly attempt to guess a user's password, then eventually they will be successful. Additionally, if passwords are exposed outside of the application, or are stored inside the application, with weak cryptographic protection, then they are susceptible to attack.
+- Mitigations include:
+   - Rate limiting requests
+   - Properly managing credentials
+   - Multifactor authentication
+   - Authentication recovery
+## A08 Software and Data Integrity Failure
+- Software and data integrity failures represent attacks that allow external software, processes, or data to compromise your application. Modern web applications extensively use open source and commercially produced packages to provide key functionality. Using these packages without conducting a security audit, gives them an unknown amount of control over your application. Likewise, using a third party processing workflow, or blindly accessing external data, opens you up to attacks.
+- Mitigations include:
+   - Only using trusted package repositories
+   - Using your own private vetted repository
+   - Audit all updates to third party packages and data sources
+## A09 Security Logging and Monitoring Failures
+- Proper system monitoring, logging, and alerting is critical to increasing security. One of the first things an attacker will do after penetrating your application is delete or alter any logs that might reveal the attacker's presence. A secure system will store logs that are accessible, immutable, and contain adequate information to detect an intrusion, and conduct post-mortem analysis.
+- Mitigations include:
+   - Real time log processing
+   - Automated alerts for metric threshold violations
+   - Periodic log reviews
+   - Visual dashboards for key indicators
+## A10 Server Side Request Forgery (SSRF)
+- This category of attack causes the application service to make unintended internal requests, that utilized the service's elevated privileges, in order to expose internal data or services.
+- Mitigations include:
+   - Sanitizing returned data
+   - Not returning data
+   - Whitelisting accessible domains
+   - Rejecting HTTP redirects
+
+# TypeScript
+- TypeScript adds static type checking to JavaScript.
+- explicitly defines types to avoid multi-logging in transpiling
+## Interfaces
+- **interface** keyword to define a collection of parameters and types that an object must contain in order to satisfy the interface type
+## Beyond type checking
+- TypeScript also provides other benefits, such as warning you of potential uses of an uninitialized variable.
+
+# Performance monitoring
+- In order to prevent losing users, you want your application to load in about one second. That means you need consistently measure and improve the responsiveness of your application. The main things you want to monitor include:
+   - Browser application latency
+   - Network latency
+   - Service endpoint latency
+## Browser application latency
+- You can reduces the impact of file size, and HTTP requests in general, by doing one or more of the following:
+   1. Use compression when transferring files over HTTP.
+   2. Reduce the quality of images and video to the lowest acceptable level.
+   3. Minify JavaScript and CSS. This removes all whitespace and creates smaller variable names.
+   4. Use HTTP/2 or HTTP/3 so that your HTTP headers are compressed and the communication protocol is more efficient.
+## Network latency
+- You pay a latency price for every network request that you make. For this reason, you want to avoid making unnecessary or large requests.
+- You can mitigate the impact of global latency by hosting your application files in data centers that are close to the users you are trying to serve. Applications that are seeking to reach a global audience will often host their application from dozens of places around the world.
+## Service endpoint latency
+- Service endpoint latency is impacted by the number of request that are made and the amount of time that it takes to process each request.
+- You want to reduce the latency of your endpoints as much as possible. Ideally you want to keep the endpoint latency to less than 10 milliseconds (ms). This may seem like a very short time, but commonly, an application will make dozens of endpoint requests to render a component. If each of those endpoints take 10 ms, then you are looking at 100 to 200 ms. When you add network latency to the time it takes for the application to process the response, and then add the time it takes for the browser to render, you can easily exceed the desired 1 second load time.
+## Performance tools
+- there's a bunch of fun things you can do i'm not bothered to write down
+
+# UX Design
+- it exists
